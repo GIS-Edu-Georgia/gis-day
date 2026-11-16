@@ -16,8 +16,8 @@ const table = (head, rows, cls = 'small') => `<table class="${cls}"><tr>${head.m
 const matrixRows = list => list.map(r => `<tr>${rowhead(r.k)}${r.v.map(cell).join('')}</tr>`);
 const rows5 = rows => rows.map(r => `<tr>${rowhead(r[0])}${r.slice(1).map(cell).join('')}</tr>`);
 const LEGEND = `<p class="small muted legend"><b class="sym ok">✔</b> ${LE('მხარდაჭერილია', 'Supported')} · <b class="sym part">◐</b> ${LE('ნაწილობრივ / დამოკიდებულია', 'Partial / depends')} · <b class="sym no">✘</b> ${LE('არა', 'No')} · <b class="sym unk">?</b> ${LE('დაუდასტურებელი', 'Unverified')}</p>`;
-const slide = (kicker, title, body, note) => `
-<section class="slide">
+const slide = (kicker, title, body, note, cls = '') => `
+<section class="slide ${cls}">
   <p class="kicker">${LE(kicker[0], kicker[1])}</p>
   <h2>${LE(title[0], title[1])}</h2>
 ${body}
@@ -32,7 +32,7 @@ const S = [];
 
 // 1 cover
 S.push(`
-<section class="slide">
+<section class="slide cover">
   <p class="kicker">${LE('GIS DAY 2026 · 18.11.2026', 'GIS DAY 2026 · 18 Nov 2026')}</p>
   <h1>${LE('GIS DAY: FME, GDAL, QGIS და Terrio-ს შედარება', 'GIS DAY: FME vs GDAL vs QGIS vs Terrio')}</h1>
   <p class="lead" style="margin-top:16px">${LE('გეოსივრცული მონაცემების დამუშავების, ავტომატიზაციის, არქიტექტურის, წარმადობისა და სერვერული შესაძლებლობების ტექნიკური შედარება', 'A Technical Comparison of Geospatial Data Processing, Automation, Architecture, Performance and Server Capabilities')}</p>
@@ -42,6 +42,7 @@ S.push(`
 
 // 2 intro
 S.push(slide(['შესავალი', 'Introduction'], ['გეოსივრცული მონაცემების დამუშავების ეკოსისტემა', 'The geospatial data processing ecosystem'], `
+  <img class="banner" src="../assets/gisday/circles.png" alt="">
   <div class="two"><div>
 ${pts([
   ['ფორმატების სიმრავლე და სხვადასხვა კოორდინატთა სისტემა', '', 'Many formats and coordinate reference systems', ''],
@@ -226,7 +227,7 @@ const srcs = [
 S.push(slide(['წყაროები', 'Sources'], ['წყაროები და ჩამოსატვირთი ფაილები', 'Sources and downloads'],
   `<div class="grid g2">${srcs.map(([n, ls]) => `<div class="card"><h3>${n}</h3><ul>${ls.map(([t, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${t}</a></li>`).join('')}</ul></div>`).join('')}</div>
    <p class="small" style="margin-top:14px">${LE('ჩამოსატვირთი', 'Downloads')}: <a href="../downloads/GIS_DAY_FME_GDAL_QGIS_TERRIO.pptx">PPTX</a> · <a href="../downloads/GIS_DAY_COMPARISON_MATRIX.xlsx">XLSX</a> · <a href="../downloads/GIS_DAY_RESEARCH_REFERENCES.md">${LE('წყაროები', 'References')}</a> · <a href="../downloads/GIS_DAY_BENCHMARK_METHODOLOGY.md">${LE('ბენჩმარკის მეთოდოლოგია', 'Benchmark methodology')}</a></p>`,
-  ['სრული სია წვდომის თარიღებითა და დაუდასტურებელი პუნქტებით: downloads/GIS_DAY_RESEARCH_REFERENCES.md.', 'Full list with access dates and unverified items: downloads/GIS_DAY_RESEARCH_REFERENCES.md.']));
+  ['სრული სია წვდომის თარიღებითა და დაუდასტურებელი პუნქტებით: downloads/GIS_DAY_RESEARCH_REFERENCES.md.', 'Full list with access dates and unverified items: downloads/GIS_DAY_RESEARCH_REFERENCES.md.'], 'closing'));
 
 const html = `<!doctype html>
 <html lang="ka">
@@ -235,6 +236,7 @@ const html = `<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GIS DAY: FME vs GDAL vs QGIS vs Terrio</title>
 <link rel="stylesheet" href="../assets/deck.css">
+<link rel="stylesheet" href="../assets/gisday.css">
 <style>
   .sym{font-weight:700} .sym.ok{color:var(--accent2)} .sym.part{color:var(--warn)} .sym.no{color:var(--danger)} .sym.unk{color:var(--muted)}
   th.rh{text-align:left} td.c{text-align:center;font-size:1.15em}

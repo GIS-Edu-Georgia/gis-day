@@ -1,0 +1,50 @@
+/* GIS Day theme — palette and imagery from the Esri GIS Day 2026 Media Kit (see NOTICE).
+   Loaded after deck.css; only overrides colours and adds branded slide types. */
+:root{
+  --bg:#ffffff; --panel:#eef5fb; --ink:#13213f; --muted:#56638a; --line:#d5def0;
+  --accent:#0b2a8c;          /* GIS Day deep blue */
+  --accent2:#0e8f7b;         /* GIS Day teal (darkened for contrast on white) */
+  --warn:#b7791f; --danger:#c0392b;
+  --teal:#1dbfa6;
+}
+:root[data-theme="dark"]{
+  --bg:#0a1a52; --panel:#102472; --ink:#eef3ff; --muted:#a9b8e6; --line:#24398c;
+  --accent:#1dbfa6; --accent2:#46e0c4; --warn:#f2c14e; --danger:#ff8a80;
+}
+h1,h2{color:var(--accent)} :root[data-theme="dark"] h1,:root[data-theme="dark"] h2{color:#fff}
+.kicker{color:var(--accent2)}
+
+/* logo top-right + faint "mappy circles" motif bottom-right on every slide */
+.slide{background-repeat:no-repeat; justify-content:safe center}
+.slide::after{content:""; position:absolute; top:calc(var(--pad) * .45); right:var(--pad); width:clamp(72px,9vw,128px); aspect-ratio:336/106;
+  background:url(gisday/logo.png) center/contain no-repeat; pointer-events:none}
+.slide::before{content:""; position:absolute; right:-40px; bottom:-30px; width:clamp(260px,34vw,460px); aspect-ratio:1120/407;
+  background:url(gisday/circles.png) center/contain no-repeat; opacity:.07; pointer-events:none}
+:root[data-theme="dark"] .slide::before{opacity:.10}
+
+/* ---- cover: full-bleed fireworks + earth ---- */
+.slide.cover,.slide.closing{max-width:none; width:100%; padding-left:max(var(--pad),calc((100vw - var(--maxw))/2 + var(--pad)));
+  padding-right:max(var(--pad),calc((100vw - var(--maxw))/2 + var(--pad)))}
+.slide.cover{background:linear-gradient(90deg,rgba(6,16,64,.92) 0%,rgba(6,16,64,.72) 55%,rgba(6,16,64,.25) 100%),url(gisday/cover-bg.jpg) center/cover no-repeat; color:#fff}
+.slide.cover::before{opacity:1; right:clamp(8px,4vw,70px); bottom:50%; transform:translateY(50%); width:clamp(220px,36vw,520px); aspect-ratio:1;
+  background:url(gisday/earth.png) center/contain no-repeat}
+.slide.cover::after{display:none}
+.slide.cover h1{color:#fff; max-width:62%} .slide.cover .kicker{color:var(--teal)}
+.slide.cover .lead{color:#cfdcff; max-width:58%} .slide.cover .muted,.slide.cover .small{color:#aebdf0}
+.slide.cover .note{display:none}
+@media (max-width:820px){.slide.cover h1,.slide.cover .lead{max-width:100%} .slide.cover::before{opacity:.35}}
+
+/* ---- closing: teal gradient ---- */
+.slide.closing{background:linear-gradient(rgba(255,255,255,.80),rgba(255,255,255,.80)),url(gisday/gradient.jpg) center/cover no-repeat}
+:root[data-theme="dark"] .slide.closing{background:linear-gradient(rgba(10,26,82,.82),rgba(10,26,82,.82)),url(gisday/gradient.jpg) center/cover no-repeat}
+
+/* ---- branded blocks ---- */
+.card{border-left:4px solid var(--teal)}
+.callout{border-left-color:var(--teal)}
+.tag{border-color:var(--teal); color:var(--accent2)}
+.banner{display:block; width:100%; max-height:120px; object-fit:contain; margin:6px 0 14px}
+.hero-img{border-radius:12px; width:100%; max-height:240px; object-fit:cover; margin:4px 0 14px}
+table th{background:var(--accent)!important; color:#fff!important}
+table th.rh{background:var(--panel)!important; color:var(--accent)!important}
+:root[data-theme="dark"] table th.rh{color:#fff!important}
+@media print{.slide::before{opacity:.05}}
