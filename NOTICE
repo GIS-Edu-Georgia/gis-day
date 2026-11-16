@@ -1,0 +1,8 @@
+Esri GIS Day 2026 Media Kit resources (resources/, downloads/GIS-Day-2026.pptx images)
+are copyrighted by Esri and are provided by Esri for GIS Day promotion and events:
+https://storymaps.arcgis.com/briefings/1228b872d0fd43d1a8343348b67bf8e8
+They are NOT covered by this repository's licenses. Check Esri's terms before redistributing.
+
+Slide engine (assets/deck.css, assets/deck.js) is from
+https://github.com/GIS-Edu-Georgia/python-course (MIT).
+Terrio screenshot (assets/terrio-ui.png): https://github.com/opengeos/terrio (MIT).

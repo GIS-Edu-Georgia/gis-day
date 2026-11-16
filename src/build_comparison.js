@@ -1,13 +1,14 @@
 const pptxgen = require('pptxgenjs');
 const { p, c, TOOLS, MATRIX, FORMATS, FORMAT_NOTES } = require('./data');
 const R = __dirname + '/../resources/';
-const OUT = __dirname + '/../output/';
+const OUT = __dirname + '/../downloads/';
 
 // Visual identity inherited from presentations/GIS-Day-2026.pptx (navy + teal, Cambria / Calibri)
 const NAVY = '0A1F6B', TEAL = '1DBFA6', INK = '13213F', MUTE = '5B6785', PALE = 'EAF7F4', WHITE = 'FFFFFF', LINE = 'C9D3E6';
 const OK = '0E8F7B', WARN = 'B7791F', BAD = 'C0392B', UNK = '7A869A';
 const HF = 'Cambria', BF = 'Calibri', KF = 'Sylfaen'; // KF = Georgian-capable font
 const W = 13.33;
+const EXPORT = {};
 
 const pres = new pptxgen();
 pres.layout = 'LAYOUT_WIDE';
@@ -214,7 +215,7 @@ const T = (s) => s; // placeholder for readability
   const s = slideBase('Terrio (OpenGeos): ახალი pure-Rust ხელსაწყო', 'Terrio (OpenGeos): An Emerging Pure-Rust Toolkit',
     'Terrio v0.9.0 (2026-11-15) — რეპოზიტორია შეიქმნა 2026-10-14-ს, ამიტომ ძალიან ახალი პროექტია. README-ის მიხედვით: early development, API შეიძლება შეიცვალოს 1.0-მდე. ლიცენზია MIT. წმინდა Rust, C დამოკიდებულებების გარეშე, WebAssembly-ზეც იგება. CLI (`terrio`), Python (`pip install terrio`), JavaScript/WASM (`terrio-js`), ლოკალური ბრაუზერ-UI (`terrio ui`, 127.0.0.1) და MCP სერვერი. GDAL-თან თავსებადობა: ბრძანებები/პარამეტრები GDAL-ს მიჰყვება, შედეგები GDAL/PROJ/PDAL-თან ტესტირდება; არასავალდებულო GDAL backend C დამოკიდებულებაა. Roadmap-ის non-goals: GDAL-ის სრული ჩანაცვლება, vendor SDK ფორმატები, DB drivers (PostGIS) ბირთვში. README აღნიშნავს, რომ პროექტი ძირითადად AI-ით, ადამიანის ზედამხედველობით იქმნება. გამოქვეყნებული ბენჩმარკები ვერ ვიპოვეთ. წყარო: github.com/opengeos/terrio, terrio.dev.',
     'Terrio v0.9.0 (2026-11-15). The repository was created 2026-10-14, so it is a very young project. Per its README: early development, API may change before 1.0. License MIT. Pure Rust, no C dependencies by default, builds to WebAssembly. CLI (`terrio`), Python (`pip install terrio`), JavaScript/WASM (`terrio-js`), a local browser UI (`terrio ui`, 127.0.0.1 only) and an MCP server. GDAL compatibility: commands and options follow GDAL, results are tested against GDAL/PROJ/PDAL; the optional GDAL backend adds a C dependency. Roadmap non-goals: replacing all of GDAL, vendor-SDK formats, database drivers (PostGIS) in core. The README discloses that the project is primarily built with AI under human review. No published benchmarks found. Source: github.com/opengeos/terrio, terrio.dev.');
-  s.addImage({ path: OUT + 'assets/terrio-ui.png', x: 0.6, y: 1.65, w: 5.6, h: 3.16 });
+  s.addImage({ path: __dirname + '/../assets/terrio-ui.png', x: 0.6, y: 1.65, w: 5.6, h: 3.16 });
   s.addText('terrio ui — ლოკალური ბრაუზერ-ინტერფეისი / local browser interface (source: github.com/opengeos/terrio)', { x: 0.6, y: 4.85, w: 5.6, h: 0.5, fontFace: BF, fontSize: 10, color: MUTE, margin: 0, isTextBox: true });
   chip(s, 0.6, 5.5, 1.8, 'ვერსია', 'v0.9.0 · 2026-11-15', NAVY, WHITE);
   chip(s, 2.5, 5.5, 1.8, 'ლიცენზია', 'MIT', NAVY, WHITE);
@@ -269,6 +270,7 @@ const T = (s) => s; // placeholder for readability
     [p('არაპროგრამისტებისთვის', 'For non-programmers'), c('✔', 'კარგი', 'Good'), c('✘', 'სუსტი', 'Weak'), c('✔', 'ძალიან კარგი', 'Very good'), c('◐', 'UI ფორმებით', 'Via UI forms')],
     [p('workflow-ების დაპროექტება', 'Workflow design'), c('✔', 'Workbench ტილო', 'Workbench canvas'), c('◐', 'სკრიპტები, pipeline', 'Scripts, pipeline'), c('✔', 'Graphical Modeler', 'Graphical Modeler'), c('◐', 'სკრიპტები, MCP', 'Scripts, MCP')],
   ];
+  EXPORT[8] = rows;
   const tbl = [[hdr('კრიტერიუმი', 'Criterion'), hdr('FME', ''), hdr('GDAL', ''), hdr('QGIS', ''), hdr('Terrio', '')]];
   rows.forEach(r => tbl.push([rowHead(r[0]), ...r.slice(1).map(x => bodyCell(x, 11))]));
   s.addTable(tbl, tblOpts(0.6, 1.5, 12.1, [2.5, 2.4, 2.4, 2.4, 2.4], { rowH: [0.42, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62] }));
@@ -290,6 +292,7 @@ const T = (s) => s; // placeholder for readability
     [p('ჰორიზონტალური მასშტაბირება', 'Horizontal scaling'), c('✔', 'Kubernetes, Docker', 'Kubernetes, Docker'), c('◐', 'load balancer-ით, ხელით', 'Load balancer, manual'), c('◐', 'თქვენი არქიტექტურით', 'Your architecture'), c('✘', 'არა', 'No')],
     [p('საჭიროა საკუთარი განვითარება', 'Custom development required'), c('', 'დაბალი', 'Low'), c('', 'დაბალი–საშუალო', 'Low–moderate'), c('', 'მაღალი', 'High'), c('', 'ეს არ არის სერვერი', 'Not a server')],
   ];
+  EXPORT[9] = rows;
   const tbl = [hd];
   rows.forEach(r => tbl.push([rowHead(r[0], 10.5), ...r.slice(1).map(x => bodyCell(x, 10.5))]));
   s.addTable(tbl, tblOpts(0.6, 1.5, 12.1, [2.5, 2.4, 2.4, 2.4, 2.4], { rowH: [0.4, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62] }));
@@ -309,6 +312,7 @@ const T = (s) => s; // placeholder for readability
     [p('დამოკიდებულებები', 'Dependencies'), c('', 'ლიცენზია; Flow-ს თავისი კომპონენტები', 'License; Flow has its own components'), c('', 'PROJ და სხვა ბიბლიოთეკები', 'PROJ and other libraries'), c('', 'Server-ზე: FastCGI, Xvfb (print)', 'Server: FastCGI, Xvfb (printing)'), c('', 'C დამოკიდებულებები არ არის (ნაგულისხმევად)', 'No C dependencies (by default)')],
     [p('გაშვების სირთულე', 'Deployment complexity'), c('', 'Form დაბალი; Flow საშუალო–მაღალი', 'Form low; Flow medium–high'), c('', 'დაბალი პაკეტებით; მაღალი წყაროდან', 'Low via packages; high from source'), c('', 'Desktop დაბალი; Server საშუალო', 'Desktop low; Server medium'), c('', 'დაბალი', 'Low')],
   ];
+  EXPORT[10] = rows;
   const tbl = [hd];
   rows.forEach(r => tbl.push([rowHead(r[0]), ...r.slice(1).map(x => bodyCell(x, 10.5))]));
   s.addTable(tbl, tblOpts(0.6, 1.6, 12.1, [2.5, 2.4, 2.4, 2.4, 2.4], { rowH: [0.4, 0.9, 0.8, 0.9, 0.9, 0.9] }));
@@ -369,6 +373,7 @@ const T = (s) => s; // placeholder for readability
     [p('დაგეგმვა', 'Workflow scheduling'), c('✔', 'Flow Schedules', 'Flow Schedules'), c('◐', 'cron / CI', 'cron / CI'), c('◐', 'cron / CI', 'cron / CI'), c('◐', 'cron / CI', 'cron / CI')],
     [p('ბაზები და ღრუბელი', 'Databases and cloud'), c('✔', 'კონექტორები', 'Connectors'), c('✔', 'PostGIS, /vsis3/', 'PostGIS, /vsis3/'), c('✔', 'providers, VSI', 'providers, VSI'), c('◐', 's3/gs/az; PostGIS არა', 's3/gs/az; no PostGIS')],
   ];
+  EXPORT[13] = rows;
   const tbl = [hd];
   rows.forEach(r => tbl.push([rowHead(r[0]), ...r.slice(1).map(x => bodyCell(x, 10.5))]));
   s.addTable(tbl, tblOpts(0.6, 1.5, 12.1, [2.5, 2.4, 2.4, 2.4, 2.4], { rowH: [0.4, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62] }));
@@ -390,6 +395,7 @@ const T = (s) => s; // placeholder for readability
     [p('ავტომატური ყოველდღიური განახლებები', 'Automated daily updates'), 'FME Flow / GDAL+cron', p('Schedules vs მარტივი სკრიპტები', 'Schedules vs simple scripts')],
     [p('Web GIS ინფრასტრუქტურა', 'Web GIS infrastructure'), 'QGIS Server (+ GDAL)', p('OGC სერვისები; GDAL — წინასწარი დამუშავება', 'OGC services; GDAL for preprocessing')],
   ];
+  EXPORT[14] = rows;
   const tbl = [[hdr('სცენარი', 'Use case'), hdr('რეკომენდებული', 'Best fit'), hdr('რატომ', 'Why')]];
   rows.forEach(r => tbl.push([rowHead(r[0]), { text: r[1], options: { fontFace: BF, fontSize: 12, bold: true, color: OK, valign: 'middle', fill: { color: WHITE } } }, { text: [run(r[2].ka, { fontFace: KF, fontSize: 11, color: INK, breakLine: true }), run(r[2].en, { fontFace: BF, fontSize: 10.5, color: MUTE })], options: { valign: 'middle', fill: { color: WHITE } } }]));
   s.addTable(tbl, tblOpts(0.6, 1.55, 12.1, [4.0, 2.3, 5.8], { rowH: [0.42, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62] }));
@@ -429,6 +435,7 @@ const T = (s) => s; // placeholder for readability
     [p('კორპორატიული ETL', 'Enterprise ETL'), ['●', '○', '', '']],
     [p('სერვერული გაშვება', 'Server deployment'), ['●', '', '●', '']],
   ];
+  EXPORT[16] = rows;
   const tbl = [[hdr('კითხვა', 'Question'), hdr('FME', ''), hdr('GDAL', ''), hdr('QGIS', ''), hdr('Terrio', '')]];
   rows.forEach(r => tbl.push([rowHead(r[0]), ...r[1].map(v => ({ text: v, options: { fontFace: 'Segoe UI Symbol', fontSize: 18, bold: true, color: v === '●' ? OK : WARN, align: 'center', valign: 'middle', fill: { color: v === '●' ? PALE : WHITE } } }))]));
   s.addTable(tbl, tblOpts(0.6, 1.55, 8.0, [3.2, 1.2, 1.2, 1.2, 1.2], { rowH: [0.42, 0.52, 0.52, 0.52, 0.52, 0.52, 0.52, 0.52] }));
@@ -463,4 +470,5 @@ const T = (s) => s; // placeholder for readability
   s.addText('მონაცემთა დამუშავება / ფაილი: GIS_DAY_RESEARCH_REFERENCES.md · GIS_DAY_COMPARISON_MATRIX.xlsx · GIS_DAY_BENCHMARK_METHODOLOGY.md', { x: 0.6, y: 6.7, w: 12, h: 0.3, fontFace: KF, fontSize: 11, color: MUTE, margin: 0, isTextBox: true });
 }
 
+require('fs').writeFileSync(__dirname + '/tables.json', JSON.stringify(EXPORT));
 pres.writeFile({ fileName: OUT + 'GIS_DAY_FME_GDAL_QGIS_TERRIO.pptx' }).then(f => console.log('wrote', f));

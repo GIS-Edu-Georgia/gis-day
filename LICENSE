@@ -1,0 +1,13 @@
+This repository is released under two licenses (see NOTICE for third-party material).
+
+1. THE ENGINE — MIT License
+   Applies to: assets/deck.css, assets/deck.js, src/*.js
+   Copyright (c) 2026 Python_Basics contributors (engine) and GIS-Edu-Georgia contributors.
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+   and associated documentation files, to deal in the Software without restriction, including the
+   rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies, subject
+   to inclusion of this notice. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+
+2. THE PRESENTATION CONTENT — CC BY 4.0
+   Applies to: index.html, presentations/*.html, downloads/*, README*.md
+   https://creativecommons.org/licenses/by/4.0/

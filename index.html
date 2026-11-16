@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GIS Day — პრეზენტაციები / Presentations</title>
+<link rel="stylesheet" href="assets/deck.css">
+<style>
+  /* index.html-ის საკუთარი განლაგება — deck.css-ის ფერებს იყენებს */
+  body{overflow:auto}
+  .wrap{max-width:1060px; margin:0 auto; padding:clamp(28px,5vw,64px) clamp(18px,4vw,40px) 80px}
+
+  header{border-bottom:1px solid var(--line); padding-bottom:26px; margin-bottom:32px}
+  header h1{font-size:clamp(28px,4.4vw,46px); margin-bottom:10px}
+  header .sub{color:var(--muted); font-size:clamp(15px,1.8vw,19px)}
+  .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px}
+
+  h2.sec{font-size:clamp(18px,2.2vw,24px); margin:38px 0 14px; padding-bottom:8px;
+         border-bottom:1px solid var(--line)}
+
+  .cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:12px}
+  a.lec{
+    display:block; text-decoration:none; color:inherit;
+    background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--accent);
+    border-radius:var(--radius); padding:14px 16px; transition:border-color .15s, transform .15s;
+  }
+  a.lec:hover{border-color:var(--accent); transform:translateY(-2px)}
+  a.lec .wk{font-size:11px; letter-spacing:1.6px; text-transform:uppercase; color:var(--muted); font-weight:700}
+  a.lec h3{font-size:17px; margin:5px 0 6px; color:var(--accent)}
+  a.lec p{font-size:13.5px; line-height:1.45; color:var(--muted); margin:0}
+  a.lec .flags{margin-top:9px; display:flex; flex-wrap:wrap; gap:5px}
+  .flag{font-size:10.5px; letter-spacing:.4px; padding:2px 7px; border-radius:20px;
+        border:1px solid var(--line); color:var(--muted); background:var(--bg)}
+  .flag.q{border-color:var(--accent2); color:var(--accent2)}
+  .flag.t{border-color:var(--warn); color:var(--warn)}
+  .flag.x{border-color:var(--danger); color:var(--danger)}
+
+  a.lec.setup{border-left-color:var(--accent2)}
+  a.lec.setup h3{color:var(--accent2)}
+  a.lec.exam{border-left-color:var(--danger)}
+  a.lec.exam h3{color:var(--danger)}
+
+  .keys{display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:8px; margin-top:12px}
+  .keys div{font-size:13.5px; color:var(--muted)}
+
+  #topbtns{position:fixed; top:16px; right:18px; z-index:10; display:flex; gap:8px}
+  #topbtns button{
+    background:var(--panel); border:1px solid var(--line); color:var(--muted);
+    border-radius:8px; font-family:var(--font); font-size:13px; padding:5px 12px; cursor:pointer}
+  #topbtns button:hover{color:var(--accent); border-color:var(--accent)}
+  @media print{ #topbtns{display:none} body{overflow:visible} }
+</style>
+</head>
+<body>
+<div id="topbtns">
+  <button id="langbtn" type="button">EN</button>
+  <button id="themebtn" type="button">◐ <span lang="ka">თემა</span><span lang="en">theme</span></button>
+</div>
+<div class="wrap">
+<header>
+  <h1><span lang="ka">GIS Day — პრეზენტაციები</span><span lang="en">GIS Day — Presentations</span></h1>
+  <p class="sub"><span lang="ka">GIS Day-ის ონლაინ წვდომადი სლაიდები და მასალები. ორენოვანია (ქართული / English): ენა გადაირთვება <kbd>L</kbd> კლავიშით.</span><span lang="en">Online GIS Day slides and materials, bilingual (Georgian / English): press <kbd>L</kbd> to switch language.</span></p>
+</header>
+<h2 class="sec"><span lang="ka">ონლაინ პრეზენტაციები</span><span lang="en">Online presentations</span></h2>
+<div class="cards">
+  <a class="lec" href="presentations/fme-gdal-qgis-terrio.html">
+    <div class="wk">GIS DAY 2026</div>
+    <h3>FME vs GDAL vs QGIS vs Terrio</h3>
+    <p><span lang="ka">გეოსივრცული დამუშავების, ავტომატიზაციის, არქიტექტურისა და სერვერული შესაძლებლობების ტექნიკური შედარება</span><span lang="en">A technical comparison of geospatial processing, automation, architecture and server capabilities</span></p>
+    <div class="flags"><span class="flag">19 slides</span><span class="flag q">KA / EN</span></div>
+  </a>
+</div>
+<h2 class="sec"><span lang="ka">ჩამოსატვირთი (PowerPoint და მასალები)</span><span lang="en">Downloads (PowerPoint and materials)</span></h2>
+<div class="cards">
+  <a class="lec" href="downloads/GIS_DAY_FME_GDAL_QGIS_TERRIO.pptx"><div class="wk">PPTX</div><h3>FME · GDAL · QGIS · Terrio</h3><p><span lang="ka">17 სლაიდი, ორენოვანი, სპიკერის ნოტებით</span><span lang="en">17 slides, bilingual, with speaker notes</span></p></a>
+  <a class="lec" href="downloads/GIS_DAY_COMPARISON_MATRIX.xlsx"><div class="wk">XLSX</div><h3><span lang="ka">შედარების მატრიცა</span><span lang="en">Comparison matrix</span></h3><p><span lang="ka">15 კრიტერიუმი, ფორმატები</span><span lang="en">15 criteria, formats</span></p></a>
+  <a class="lec" href="downloads/GIS_DAY_RESEARCH_REFERENCES.md"><div class="wk">MD</div><h3><span lang="ka">წყაროები</span><span lang="en">Research references</span></h3><p><span lang="ka">ვერსიები, თარიღები, დაუდასტურებელი პუნქტები</span><span lang="en">Versions, dates, unverified items</span></p></a>
+  <a class="lec" href="downloads/GIS_DAY_BENCHMARK_METHODOLOGY.md"><div class="wk">MD</div><h3><span lang="ka">ბენჩმარკის მეთოდოლოგია</span><span lang="en">Benchmark methodology</span></h3><p><span lang="ka">რეპროდუცირებადი მეთოდი, შედეგების გარეშე</span><span lang="en">Reproducible method, no results</span></p></a>
+  <a class="lec" href="downloads/GIS-Day-2026.pptx"><div class="wk">PPTX</div><h3>GIS Day 2026</h3><p><span lang="ka">Esri-ის media kit-ზე დაფუძნებული მიმოხილვა</span><span lang="en">Overview based on the Esri media kit</span></p></a>
+  <a class="lec" href="downloads/Teacher-for-a-Day.pptx"><div class="wk">PPTX</div><h3>Teacher for a Day</h3><p><span lang="ka">GIS სპეციალისტი სკოლაში — 5 ნაბიჯი</span><span lang="en">A GIS professional in the classroom — 5 steps</span></p></a>
+</div>
+<h2 class="sec"><span lang="ka">კლავიშები</span><span lang="en">Keys</span></h2>
+<div class="keys"><div><kbd>←</kbd> <kbd>→</kbd> navigate</div><div><kbd>O</kbd> outline</div><div><kbd>N</kbd> notes</div><div><kbd>S</kbd> presenter</div><div><kbd>L</kbd> language</div><div><kbd>D</kbd> theme</div><div><kbd>F</kbd> fullscreen</div><div><kbd>P</kbd> PDF</div></div>
+<p class="small muted" style="margin-top:34px"><span lang="ka">Esri-ის GIS Day Media Kit-ის რესურსები (resources/) Esri-ს ეკუთვნის; იხ. NOTICE.</span><span lang="en">Esri GIS Day Media Kit resources (resources/) belong to Esri; see NOTICE.</span></p>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+
+  /* თემა */
+  var btn = document.getElementById("themebtn");
+  try {
+    var saved = localStorage.getItem("deck-theme");
+    if (saved) root.setAttribute("data-theme", saved);
+    else if (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches)
+      root.setAttribute("data-theme", "dark");
+  } catch (e) {}
+
+  btn.addEventListener("click", function () {
+    var dark = root.getAttribute("data-theme") === "dark";
+    root.setAttribute("data-theme", dark ? "light" : "dark");
+    try { localStorage.setItem("deck-theme", dark ? "light" : "dark"); } catch (e) {}
+  });
+
+  /* ენა — იგივე გასაღები, რასაც deck.js იყენებს */
+  var lbtn = document.getElementById("langbtn");
+
+  function setLang(l) {
+    root.setAttribute("lang", l);
+    lbtn.textContent = l === "en" ? "ქარ" : "EN";
+    try { localStorage.setItem("deck-lang", l); } catch (e) {}
+  }
+
+  var savedLang = "ka";
+  try { savedLang = localStorage.getItem("deck-lang") || "ka"; } catch (e) {}
+  setLang(savedLang === "en" ? "en" : "ka");
+
+  lbtn.addEventListener("click", function () {
+    setLang(root.getAttribute("lang") === "en" ? "ka" : "en");
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.ctrlKey || e.altKey || e.metaKey) return;
+    var k = e.key.toLowerCase();
+    if (k === "l") setLang(root.getAttribute("lang") === "en" ? "ka" : "en");
+    else if (k === "d") btn.click();
+  });
+})();
+</script>
+</body>
+</html>

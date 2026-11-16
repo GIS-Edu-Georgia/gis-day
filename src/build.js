@@ -1,6 +1,6 @@
 const pptxgen = require('pptxgenjs');
 const R = __dirname + '/../resources/';
-const OUT = __dirname + '/../presentations/';
+const OUT = __dirname + '/../downloads/';
 const NAVY='0A1F6B', TEAL='1DBFA6', INK='13213F', MUTE='5B6785', PALE='EAF7F4', WHITE='FFFFFF';
 const HF='Cambria', BF='Calibri';
 

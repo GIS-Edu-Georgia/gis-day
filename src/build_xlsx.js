@@ -17,5 +17,5 @@ const { TOOLS, MATRIX, FORMATS, FORMAT_NOTES } = require('./data');
   wl.columns = [{ header: 'Item', width: 28 }, { header: 'Value (verified 2026-11-16)', width: 90 }];
   [['FME', 'FME 2026.2 (June 2026; quarterly cadence since 2026.1); commercial'], ['GDAL', '3.13.3 (2026-08-18); MIT-style license'], ['QGIS', '4.2.3 (2026-09-25); LTR 3.44.15; GPL-2.0'], ['Terrio', 'v0.9.0 (2026-11-15); repo created 2026-10-14; MIT; early development'], ['Symbols', '✔ supported · ◐ partial · ✘ not available · ? unverified'], ['Performance', 'No independent cross-tool benchmark found; see GIS_DAY_BENCHMARK_METHODOLOGY.md']].forEach(r => wl.addRow(r));
   head(wl);
-  await wb.xlsx.writeFile(__dirname + '/../output/GIS_DAY_COMPARISON_MATRIX.xlsx'); console.log('xlsx ok');
+  await wb.xlsx.writeFile(__dirname + '/../downloads/GIS_DAY_COMPARISON_MATRIX.xlsx'); console.log('xlsx ok');
 })();
