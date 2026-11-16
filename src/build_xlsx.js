@@ -1,0 +1,21 @@
+const ExcelJS = require('exceljs');
+const { TOOLS, MATRIX, FORMATS, FORMAT_NOTES } = require('./data');
+(async () => {
+  const wb = new ExcelJS.Workbook(); wb.creator = 'GIS Day';
+  const head = (ws) => { ws.getRow(1).font = { bold: true, color: { argb: 'FFFFFFFF' } }; ws.getRow(1).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0A1F6B' } }; ws.views = [{ state: 'frozen', xSplit: 1, ySplit: 1 }]; ws.eachRow(r => r.alignment = { wrapText: true, vertical: 'top' }); };
+  const ws = wb.addWorksheet('Matrix');
+  ws.columns = [{ header: 'კრიტერიუმი / Criterion', width: 30 }, ...TOOLS.map(t => ({ header: t, width: 46 }))];
+  MATRIX.forEach(r => ws.addRow([`${r.k.ka} / ${r.k.en}`, ...r.v.map(c => `${c.s ? c.s + ' ' : ''}${c.ka} / ${c.en}`)]));
+  head(ws);
+  const wf = wb.addWorksheet('Formats');
+  wf.columns = [{ header: 'Format', width: 44 }, ...TOOLS.map(t => ({ header: t, width: 12 }))];
+  FORMATS.forEach(f => wf.addRow([f.k, ...f.v]));
+  wf.addRow([]); FORMAT_NOTES.forEach(n => wf.addRow([`${n.ka} / ${n.en}`]));
+  wf.addRow(['✔ supported · ◐ partial/depends on version, build or plug-in · ✘ not available · ? unverified']);
+  head(wf);
+  const wl = wb.addWorksheet('Legend & status');
+  wl.columns = [{ header: 'Item', width: 28 }, { header: 'Value (verified 2026-11-16)', width: 90 }];
+  [['FME', 'FME 2026.2 (June 2026; quarterly cadence since 2026.1); commercial'], ['GDAL', '3.13.3 (2026-08-18); MIT-style license'], ['QGIS', '4.2.3 (2026-09-25); LTR 3.44.15; GPL-2.0'], ['Terrio', 'v0.9.0 (2026-11-15); repo created 2026-10-14; MIT; early development'], ['Symbols', '✔ supported · ◐ partial · ✘ not available · ? unverified'], ['Performance', 'No independent cross-tool benchmark found; see GIS_DAY_BENCHMARK_METHODOLOGY.md']].forEach(r => wl.addRow(r));
+  head(wl);
+  await wb.xlsx.writeFile(__dirname + '/../output/GIS_DAY_COMPARISON_MATRIX.xlsx'); console.log('xlsx ok');
+})();
