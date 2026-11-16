@@ -37,6 +37,7 @@ S.push(`
   <h1>${LE('GIS DAY: FME, GDAL, QGIS და Terrio-ს შედარება', 'GIS DAY: FME vs GDAL vs QGIS vs Terrio')}</h1>
   <p class="lead" style="margin-top:16px">${LE('გეოსივრცული მონაცემების დამუშავების, ავტომატიზაციის, არქიტექტურის, წარმადობისა და სერვერული შესაძლებლობების ტექნიკური შედარება', 'A Technical Comparison of Geospatial Data Processing, Automation, Architecture, Performance and Server Capabilities')}</p>
   <p class="small muted" style="margin-top:14px">${LE('ფაქტები გადამოწმებულია 2026-11-16-ზე · კლავიში L — ენა, S — ლექტორის ხედი', 'Facts verified as of 2026-11-16 · key L switches language, S opens presenter view')}</p>
+  <a class="qr" href="https://gisday.qgis.ge/" target="_blank" rel="noopener"><img src="../assets/gisday/qr.svg" alt="QR: gisday.qgis.ge"><span>${LE('დაასკანერე და გახსენი საიტი', 'Scan to open the site')}<br><b>gisday.qgis.ge</b></span></a>
   <div class="note">${L('ოთხი სხვადასხვა კატეგორიის ხელსაწყო: ETL პლატფორმა, ბიბლიოთეკა/CLI, დესკტოპ GIS და ახალი pure-Rust ხელსაწყო. მიზანია არა გამარჯვებულის გამოცხადება, არამედ ამოცანის მიხედვით არჩევა.', 'Four tools from different categories: ETL platform, library/CLI, desktop GIS and a new pure-Rust toolkit. The goal is choosing by task, not crowning a winner.')}</div>
 </section>`);
 

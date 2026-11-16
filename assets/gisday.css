@@ -48,3 +48,10 @@ table th{background:var(--accent)!important; color:#fff!important}
 table th.rh{background:var(--panel)!important; color:var(--accent)!important}
 :root[data-theme="dark"] table th.rh{color:#fff!important}
 @media print{.slide::before{opacity:.05}}
+
+/* QR on the cover */
+.qr{position:absolute; right:max(var(--pad),calc((100vw - var(--maxw))/2 + var(--pad))); bottom:64px; display:flex; align-items:center; gap:12px; text-decoration:none;
+  background:#fff; color:#0a1f6b; border-radius:12px; padding:8px 14px 8px 8px; box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.qr img{width:clamp(84px,10vw,120px); height:auto; display:block}
+.qr span{font-size:clamp(11px,1.2vw,14px); line-height:1.35; max-width:170px} .qr b{font-size:1.1em; color:#0e8f7b}
+.slide.cover{position:absolute}
