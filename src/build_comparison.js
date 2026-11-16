@@ -453,6 +453,140 @@ const T = (s) => s; // placeholder for readability
   s.addText('ეს შეფასება ექსპერტულია და არა გაზომილი. / This is expert judgement, not measured data.', { x: 0.6, y: 6.55, w: 12, h: 0.35, fontFace: KF, fontSize: 11, color: MUTE, margin: 0, isTextBox: true });
 }
 
+
+// ================= TEMPLATE-ONLY: practical OSM testing section (TEMPLATE=1) =================
+if (process.env.TEMPLATE === '1') {
+  const AMBER = 'B7791F', AMBER_BG = 'FFF6E0', GREY_BG = 'EEF0F5';
+  const PH = {
+    select: ['[OSM მონაცემთა ნაკრები – შესარჩევია]', '[OSM dataset – to be selected]'],
+    complete: ['[შესავსებია]', '[To be completed]'],
+    define: ['[განსასაზღვრია]', '[To be defined]'],
+    measure: ['[გასაზომია]', '[To be measured]'],
+    evaluate: ['[შესაფასებელია]', '[To be evaluated]'],
+    add: ['[დასამატებელია]', '[To be added]'],
+    after: ['[შესავსებია ტესტირების შემდეგ]', '[To be completed after testing]'],
+  };
+  const FIELDS = [
+    ['მონაცემთა წყარო', 'Data source', 'select'], ['შემავალი ფორმატი', 'Input format', 'complete'], ['სატესტო ამოცანა', 'Test task', 'define'],
+    ['დამუშავების პარამეტრები', 'Processing parameters', 'complete'], ['გამოსავალი ფორმატი', 'Output format', 'complete'],
+    ['შესრულების დრო', 'Execution time', 'measure'], ['გამოსავალი ფაილის ზომა', 'Output file size', 'measure'],
+    ['შედეგის სიზუსტე და ხარისხი', 'Result accuracy and quality', 'evaluate'], ['ეკრანის სურათი / მტკიცებულება', 'Screenshot / evidence', 'add'],
+  ];
+  const phRuns = (k, size = 11) => [run(PH[k][0], { fontFace: KF, fontSize: size, italic: true, color: AMBER, breakLine: true }), run(PH[k][1], { fontFace: BF, fontSize: size, italic: true, color: AMBER })];
+  const badge = (s, ka, en, fill, color = WHITE, x = 10.0, w = 2.75) => chip(s, x, 0.84, w, ka, en, fill, color, 0.5);
+  const dashedBox = (s, x, y, w, h, fill = AMBER_BG, lineColor = AMBER) => s.addShape('roundRect', { x, y, w, h, fill: { color: fill }, line: { color: lineColor, width: 1.25, dashType: 'dash' }, rectRadius: 0.08 });
+  const TEMPLATE_FOOT = 'შაბლონი, ტესტირებამდე / template, before testing — შედეგები არ არსებობს / no results';
+
+  // ---- T1. Section divider: separation of template and benchmark
+  {
+    const s = slideBase('პრაქტიკული ტესტირება: შაბლონი', 'Practical Testing: Template (OSM data)',
+      'ეს სექცია ცარიელი სატესტო შაბლონია. OSM მონაცემები ჯერ არ არის ჩამოტვირთული, ტესტი არ ჩატარებულა, შედეგები და ქულები არ არსებობს. ბენჩმარკის შედეგები ცალკე დელივერაბლია და მოგვიანებით შეივსება. ფერები: ტურქიზი — დაგეგმილი; ქარვისფერი — ცარიელი შაბლონი; ნაცრისფერი — მომავალი შედეგები.',
+      'This section is an empty testing template. No OSM data has been downloaded, no tests have been run, and no results or scores exist. Benchmark results are a separate deliverable to be completed later. Colours: teal = planned; amber = empty template; grey = future results.', { dark: true });
+    s.addShape('roundRect', { x: 0.6, y: 1.75, w: 5.9, h: 2.6, fill: { color: TEAL }, line: { color: TEAL }, rectRadius: 0.08 });
+    s.addText([run('A · პრაქტიკული ტესტირების შაბლონი', { fontFace: KF, fontSize: 18, bold: true, color: INK, breakLine: true }), run('A · Practical Testing Template', { fontFace: BF, fontSize: 17, bold: true, color: INK })], { x: 0.85, y: 1.9, w: 5.4, h: 0.9, margin: 0, valign: 'top', isTextBox: true });
+    s.addText([run('სტრუქტურა, ინსტრუქციები, ველები, სამუშაო გეგმა, შეჯამების ჩარჩო', { fontFace: KF, fontSize: 13, color: INK, breakLine: true }), run('Structure, instructions, fields, work plan, summary frame', { fontFace: BF, fontSize: 13, color: INK, breakLine: true, paraSpaceAfter: 6 }), run('ეს ეტაპი — იქმნება ახლა / This stage — being created now', { fontFace: BF, fontSize: 13, bold: true, color: INK })], { x: 0.85, y: 3.05, w: 5.4, h: 1.2, margin: 0, valign: 'top', isTextBox: true });
+    s.addShape('roundRect', { x: 6.85, y: 1.75, w: 5.9, h: 2.6, fill: { color: GREY_BG }, line: { color: UNK, width: 1.5, dashType: 'dash' }, rectRadius: 0.08 });
+    s.addText([run('B · ბენჩმარკის შედეგები', { fontFace: KF, fontSize: 18, bold: true, color: INK, breakLine: true }), run('B · Benchmark Results', { fontFace: BF, fontSize: 17, bold: true, color: INK, breakLine: true, paraSpaceAfter: 10 }),
+      run('ბრძანებები, სკრინშოტები, დრო, ზომა, დაკვირვებები — OSM ტესტირების შემდეგ', { fontFace: KF, fontSize: 13, color: MUTE, breakLine: true }), run('Commands, screenshots, timings, sizes, observations — after OSM testing', { fontFace: BF, fontSize: 13, color: MUTE, breakLine: true, paraSpaceAfter: 6 }), run('ჯერ არ არსებობს / Does not exist yet', { fontFace: BF, fontSize: 13, bold: true, color: INK })],
+      { x: 7.1, y: 1.9, w: 5.4, h: 2.4, margin: 0, valign: 'top', isTextBox: true });
+    chip(s, 0.6, 4.9, 3.9, 'დაგეგმილი', 'PLANNED', TEAL, INK); chip(s, 4.7, 4.9, 3.9, 'ცარიელი შაბლონი', 'EMPTY TEMPLATE', AMBER, WHITE); chip(s, 8.8, 4.9, 3.95, 'მომავალი შედეგები', 'FUTURE RESULTS', UNK, WHITE);
+    s.addText('ამ ეტაპზე OSM მონაცემები არ ჩამოტვირთულა, ტესტები არ ჩატარებულა. / At this stage no OSM data was downloaded and no tests were run.', { x: 0.6, y: 5.9, w: 12.1, h: 0.5, fontFace: KF, fontSize: 13, color: 'CADCFC', margin: 0, isTextBox: true });
+  }
+
+  // ---- T2. Common template (same 9 fields for all four tools)
+  {
+    const s = slideBase('ტესტირების შაბლონი: ერთიანი სტრუქტურა', 'Practical Testing Template: One Structure for All Tools',
+      'ყველა ხელსაწყოს ერთნაირი 9 ველი აქვს, რომ შედეგები შესადარებელი იყოს. ყველა უჯრა ცარიელია და ტესტირებისას შეივსება. მონაცემთა წყარო ოთხივე ხელსაწყოსთვის ერთი და იგივე OSM ნაკრები უნდა იყოს.',
+      'All four tools use the same nine fields so that results are comparable. Every cell is empty and will be completed during testing. The data source must be the same OSM dataset for all four tools.', { foot: TEMPLATE_FOOT });
+    badge(s, 'ცარიელი შაბლონი', 'EMPTY TEMPLATE', AMBER);
+    const hd = [hdr('ველი', 'Field'), hdr('FME', ''), hdr('GDAL', ''), hdr('QGIS', ''), hdr('Terrio', '')];
+    const tbl = [hd];
+    FIELDS.forEach(([ka, en, k]) => tbl.push([rowHead({ ka, en }, 10.5), ...[0, 1, 2, 3].map(() => ({ text: phRuns(k, 10), options: { valign: 'middle', fill: { color: AMBER_BG } } }))]));
+    s.addTable(tbl, tblOpts(0.6, 1.5, 12.1, [2.9, 2.3, 2.3, 2.3, 2.3], { rowH: [0.4, 0.52, 0.52, 0.52, 0.52, 0.52, 0.52, 0.52, 0.52, 0.52] }));
+  }
+
+  // ---- T3-T6. Per-tool placeholder slides (identical layout)
+  const TOOL_SLIDES = [
+    ['FME', 'FME: პრაქტიკული ტესტი — შაბლონი', 'FME: Practical Test — Template', [['ვიზუალური workflow / pipeline', 'Visual workflow / pipeline'], ['Reader-ისა და Writer-ის კონფიგურაცია', 'Reader and writer configuration'], ['დამუშავების ნაბიჯები', 'Processing steps'], ['შედეგები და მტკიცებულება', 'Results and evidence']]],
+    ['GDAL', 'GDAL: პრაქტიკული ტესტი — შაბლონი', 'GDAL: Practical Test — Template', [['ბრძანების სტრიქონის ბრძანება', 'Command-line command'], ['დამუშავების პარამეტრები', 'Processing parameters'], ['ტერმინალის გამოტანა', 'Terminal output'], ['შედეგები და მტკიცებულება', 'Results and evidence']]],
+    ['QGIS', 'QGIS: პრაქტიკული ტესტი — შაბლონი', 'QGIS: Practical Test — Template', [['Processing Toolbox-ის კონფიგურაცია', 'Processing Toolbox configuration'], ['არჩეული ალგორითმი და პარამეტრები', 'Selected algorithm and parameters'], ['დამუშავების გამოტანა', 'Processing output'], ['შედეგები და მტკიცებულება', 'Results and evidence']]],
+    ['Terrio', 'Terrio: პრაქტიკული ტესტი — შაბლონი', 'Terrio: Practical Test — Template', [['გამოყენებული ბრძანება ან ინტერფეისი', 'Command or interface used'], ['დამუშავების პარამეტრები', 'Processing parameters'], ['გამოტანა და მტკიცებულება', 'Output and evidence'], ['შენიშვნები ფუნქციონალისა და შეზღუდვების შესახებ', 'Notes about functionality or limitations']]],
+  ];
+  TOOL_SLIDES.forEach(([tool, tka, ten, boxes]) => {
+    const s = slideBase(tka, ten,
+      tool + '-ის ცარიელი სატესტო გვერდი. არცერთი ბრძანება, პარამეტრი ან შედეგი ჯერ არ არის შევსებული; უცნობი ინფორმაცია დარჩენილია placeholder-ად. ბრძანებებს/ინტერფეისს ტესტირებისას დავადასტურებთ დოკუმენტაციით.',
+      'Empty test page for ' + tool + '. No command, parameter or result has been filled in; unknown information stays a placeholder. Commands/interfaces will be verified against documentation during testing.', { foot: TEMPLATE_FOOT });
+    badge(s, 'ცარიელი შაბლონი', 'EMPTY TEMPLATE', AMBER);
+    boxes.forEach(([ka, en], i) => {
+      const x = 0.6 + (i % 2) * 3.95, y = 1.55 + Math.floor(i / 2) * 2.7;
+      dashedBox(s, x, y, 3.75, 2.5);
+      s.addText([run(ka, { fontFace: KF, fontSize: 13, bold: true, color: NAVY, breakLine: true }), run(en, { fontFace: BF, fontSize: 12, bold: true, color: MUTE })], { x: x + 0.15, y: y + 0.12, w: 3.45, h: 0.75, margin: 0, valign: 'top', isTextBox: true });
+      s.addText(phRuns('add', 13), { x: x + 0.15, y: y + 1.2, w: 3.45, h: 0.8, margin: 0, align: 'center', valign: 'middle', isTextBox: true });
+    });
+    // right: the same 9 fields
+    s.addText([run('ერთიანი ველები / Common fields', { fontFace: BF, fontSize: 12, bold: true, color: NAVY })], { x: 8.75, y: 1.5, w: 4.0, h: 0.3, margin: 0, isTextBox: true });
+    FIELDS.forEach(([ka, en, k], i) => {
+      const y = 1.85 + i * 0.56;
+      s.addText([run(ka + ' / ' + en, { fontFace: KF, fontSize: 10.5, bold: true, color: INK, breakLine: true }), run(PH[k][0] + ' ' + PH[k][1], { fontFace: KF, fontSize: 10, italic: true, color: AMBER })], { x: 8.75, y, w: 4.0, h: 0.52, margin: 0, valign: 'top', isTextBox: true });
+    });
+  });
+
+  // ---- T7. Work plan
+  {
+    const s = slideBase('პრაქტიკული ტესტირების სამუშაო გეგმა', 'Practical Testing Work Plan',
+      'ეტაპები გეგმაა და არა შესრულებული სამუშაო. ყველა ეტაპი მომავალშია. ტესტირებისას თითოეულ ეტაპს სტატუსს შევუცვლით. ბენჩმარკის მეთოდოლოგიის დეტალები: GIS_DAY_BENCHMARK_METHODOLOGY.md.',
+      'The stages are a plan, not completed work. All stages are in the future; each status will be updated during testing. Benchmark methodology details: GIS_DAY_BENCHMARK_METHODOLOGY.md.', { foot: 'დაგეგმილი, არ არის შესრულებული / planned, not yet performed' });
+    badge(s, 'დაგეგმილი', 'PLANNED', TEAL, INK, 10.35, 2.4);
+    const st = [
+      ['ტესტ-მონაცემების მომზადება', 'Test Data Preparation', 'ერთიანი OSM ნაკრების არჩევა და მომზადება ოთხივე ხელსაწყოსთვის', 'Select and prepare one consistent OSM dataset for all four tools'],
+      ['ტესტის განსაზღვრა', 'Test Definition', 'ერთნაირი შემავალი მონაცემები, ამოცანები, პარამეტრები, მოსალოდნელი გამოსავალი', 'Identical input, tasks, parameters and expected outputs'],
+      ['ხელსაწყოების ინდივიდუალური ტესტი', 'Individual Tool Testing', 'იგივე ამოცანების შესრულება FME-ში, GDAL-ში, QGIS-სა და Terrio-ში', 'Perform the same tasks in FME, GDAL, QGIS and Terrio'],
+      ['მტკიცებულებების შეგროვება', 'Evidence Collection', 'ბრძანებები, კონფიგურაციები, სკრინშოტები, დრო, ფაილის ზომა', 'Commands, configurations, screenshots, timings, file sizes'],
+      ['შედეგების ვალიდაცია', 'Result Validation', 'სისწორის, სისრულისა და თანმიმდევრულობის შემოწმება', 'Check correctness, completeness and consistency'],
+      ['ბენჩმარკის ანალიზი', 'Benchmark Analysis', 'გაზომილი შედეგების შედარება ერთნაირი კრიტერიუმებით', 'Compare measured results using the same criteria'],
+      ['საბოლოო შეფასება', 'Final Evaluation', 'ძლიერი მხარეები, შეზღუდვები, შესაფერისი გამოყენების სცენარები', 'Strengths, limitations and suitable use cases'],
+    ];
+    st.forEach(([ka, en, dka, den], i) => {
+      const row = i < 4 ? 0 : 1, col = i < 4 ? i : i - 4;
+      const x = 0.6 + col * 3.08, y = 1.55 + row * 2.75, w = 2.9, h = 2.5;
+      s.addShape('roundRect', { x, y, w, h, fill: { color: PALE }, line: { color: TEAL, width: 1.25, dashType: 'dash' }, rectRadius: 0.08, objectName: 'stage' + (i + 1) });
+      s.addShape('ellipse', { x: x + 0.15, y: y + 0.15, w: 0.5, h: 0.5, fill: { color: TEAL }, line: { color: WHITE } });
+      s.addText(String(i + 1), { x: x + 0.15, y: y + 0.15, w: 0.5, h: 0.5, align: 'center', valign: 'middle', fontFace: HF, fontSize: 16, bold: true, color: INK, margin: 0, isTextBox: true });
+      s.addText([run(ka, { fontFace: KF, fontSize: 12.5, bold: true, color: NAVY, breakLine: true }), run(en, { fontFace: BF, fontSize: 12, bold: true, color: MUTE, breakLine: true, paraSpaceAfter: 6 }), run(dka, { fontFace: KF, fontSize: 11, color: INK, breakLine: true }), run(den, { fontFace: BF, fontSize: 10.5, color: MUTE })], { x: x + 0.15, y: y + 0.72, w: w - 0.3, h: h - 0.8, margin: 0, valign: 'top', isTextBox: true });
+    });
+    s.addText('7 ეტაპი — დაგეგმილი, არ არის შესრულებული / 7 stages — planned, not yet performed', { x: 9.84, y: 4.3, w: 2.9, h: 2.5, fontFace: KF, fontSize: 12, color: MUTE, margin: 0, align: 'center', valign: 'middle', isTextBox: true });
+  }
+
+  // ---- T8. Benchmark Evaluation Framework (empty)
+  {
+    const s = slideBase('ბენჩმარკის შეფასების ჩარჩო', 'Benchmark Evaluation Framework',
+      'ეს ცარიელი ჩარჩოა და არა შედეგები. ქულები, რანჟირება, წარმადობის მტკიცებები და დასკვნები ტესტირებამდე არ ივსება. ყველა უჯრა მხოლოდ მომავალ გაზომვას ან შეფასებას აღნიშნავს.',
+      'This is an empty framework, not results. Scores, rankings, performance claims and conclusions are not filled in before testing. Every cell only marks a future measurement or evaluation.', { foot: TEMPLATE_FOOT });
+    badge(s, 'ცარიელი ჩარჩო, შედეგები არ არის', 'EMPTY FRAMEWORK, NOT RESULTS', UNK, WHITE, 9.0, 3.75);
+    const rows = [['შესრულების დრო', 'Execution time', 'measure'], ['გამოსავალი ფაილის ზომა', 'Output file size', 'measure'], ['მონაცემთა სიზუსტე', 'Data accuracy', 'evaluate'], ['დამუშავების საიმედოობა', 'Processing reliability', 'evaluate'], ['გამოყენების სიმარტივე', 'Ease of use', 'evaluate'], ['ავტომატიზაციის შესაძლებლობები', 'Automation capabilities', 'evaluate']];
+    const tbl = [[hdr('კრიტერიუმი', 'Criterion'), hdr('FME', ''), hdr('GDAL', ''), hdr('QGIS', ''), hdr('Terrio', '')]];
+    rows.forEach(([ka, en, k]) => tbl.push([rowHead({ ka, en }, 11), ...[0, 1, 2, 3].map(() => ({ text: [run(PH[k][0], { fontFace: KF, fontSize: 11, italic: true, color: UNK, breakLine: true }), run(k === 'measure' ? 'To be measured' : 'To be evaluated', { fontFace: BF, fontSize: 11, italic: true, color: UNK })], options: { valign: 'middle', fill: { color: GREY_BG } } }))]));
+    s.addTable(tbl, tblOpts(0.6, 1.55, 12.1, [3.3, 2.2, 2.2, 2.2, 2.2], { rowH: [0.45, 0.62, 0.62, 0.62, 0.62, 0.62, 0.62] }));
+    s.addText('ქულები, რანჟირება, წარმადობის მტკიცებები და დასკვნები ტესტირებამდე არ ივსება. / No scores, rankings, performance claims or conclusions before testing.', { x: 0.6, y: 6.2, w: 12.1, h: 0.5, fontFace: KF, fontSize: 12, color: MUTE, margin: 0, isTextBox: true });
+  }
+
+  // ---- T9. Expected summary structure
+  {
+    const s = slideBase('პრაქტიკული ტესტირება — შეჯამების სტრუქტურა', 'Practical Testing – Expected Summary Structure',
+      'დასკვნები ტესტირების შემდეგ დაიწერება. წინასწარ არცერთი დასკვნა არ იწერება.',
+      'Conclusions will be written after testing. No conclusion is written in advance.', { foot: TEMPLATE_FOOT });
+    badge(s, 'ცარიელი შაბლონი', 'EMPTY TEMPLATE', AMBER);
+    const items = [['ძირითადი მიგნებები', 'Main findings'], ['წარმადობის შედარება', 'Performance comparison'], ['მონაცემთა ხარისხის დაკვირვებები', 'Data quality observations'], ['თითოეული ხელსაწყოს ძლიერი მხარეები', 'Strengths of each tool'], ['გამოვლენილი შეზღუდვები', 'Limitations encountered'], ['რეკომენდებული გამოყენების სცენარები', 'Recommended use cases']];
+    items.forEach(([ka, en], i) => {
+      const x = 0.6 + (i % 2) * 6.15, y = 1.5 + Math.floor(i / 2) * 1.3;
+      dashedBox(s, x, y, 5.95, 1.15);
+      s.addText([run(ka + ' / ' + en, { fontFace: KF, fontSize: 13, bold: true, color: NAVY, breakLine: true })].concat(phRuns('after', 11.5)), { x: x + 0.2, y: y + 0.08, w: 5.55, h: 1.0, margin: 0, valign: 'middle', isTextBox: true });
+    });
+    dashedBox(s, 0.6, 5.45, 12.1, 1.2);
+    s.addText([run('საერთო დასკვნა / Overall conclusion', { fontFace: KF, fontSize: 14, bold: true, color: NAVY, breakLine: true })].concat(phRuns('after', 12)), { x: 0.8, y: 5.5, w: 11.7, h: 1.1, margin: 0, valign: 'middle', isTextBox: true });
+  }
+}
+
 // ================= 17. References =================
 {
   const s = slideBase('წყაროები', 'Sources and References',
@@ -473,5 +607,5 @@ const T = (s) => s; // placeholder for readability
   s.addText('მონაცემთა დამუშავება / ფაილი: GIS_DAY_RESEARCH_REFERENCES.md · GIS_DAY_COMPARISON_MATRIX.xlsx · GIS_DAY_BENCHMARK_METHODOLOGY.md', { x: 0.6, y: 6.7, w: 12, h: 0.3, fontFace: KF, fontSize: 11, color: MUTE, margin: 0, isTextBox: true });
 }
 
-require('fs').writeFileSync(__dirname + '/tables.json', JSON.stringify(EXPORT));
-pres.writeFile({ fileName: OUT + 'GIS_DAY_FME_GDAL_QGIS_TERRIO.pptx' }).then(f => console.log('wrote', f));
+if (process.env.TEMPLATE !== '1') require('fs').writeFileSync(__dirname + '/tables.json', JSON.stringify(EXPORT));
+pres.writeFile({ fileName: OUT + (process.env.TEMPLATE === '1' ? 'GIS_DAY_FME_GDAL_QGIS_TERRIO_TEMPLATE.pptx' : 'GIS_DAY_FME_GDAL_QGIS_TERRIO.pptx') }).then(f => console.log('wrote', f));
