@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GIS_BOX: AI-assisted GIS toolkit</title>
+<link rel="stylesheet" href="../assets/deck.css">
+<link rel="stylesheet" href="../assets/gisday.css">
+</head>
+<body>
+<main class="deck">
+
+<section class="slide cover">
+  <p class="kicker"><span lang="ka">GIS DAY 2026 · 18.11.2026</span><span lang="en">GIS DAY 2026 · 18 Nov 2026</span></p>
+  <h1><span lang="ka">GIS_BOX: AI-ის დახმარებით შექმნილი GIS ხელსაწყოების კრებული</span><span lang="en">GIS_BOX: an AI-assisted GIS toolkit</span></h1>
+  <p class="lead" style="margin-top:16px"><span lang="ka">11 ხელსაწყო ერთ ფანჯარაში — ორენოვანი, ღია კოდით (MIT)</span><span lang="en">11 tools in one window — bilingual, open source (MIT)</span></p>
+  <a class="qr" href="https://github.com/GIS-GEORGIA/gis-toolkit" target="_blank" rel="noopener"><img src="../assets/gisbox-qr.svg" alt="QR: gis-toolkit"><span><span lang="ka">დაასკანერე და გახსენი რეპოზიტორია</span><span lang="en">Scan to open the repository</span><br><b>github.com/GIS-GEORGIA/gis-toolkit</b></span></a>
+  <div class="note"><span lang="ka">GIS_BOX არის GIS ხელსაწყოების კრებული ერთ ფანჯარაში (tkinter). რეპოზიტორია: github.com/GIS-GEORGIA/gis-toolkit, ლიცენზია MIT. ფაქტები გადამოწმებულია 2026-11-18-ზე.</span><span lang="en">GIS_BOX is a collection of GIS tools in one window (tkinter). Repository: github.com/GIS-GEORGIA/gis-toolkit, MIT license. Facts checked on 2026-11-18.</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">პრობლემა</span><span lang="en">Problem</span></p>
+  <h2><span lang="ka">რუტინული GIS სამუშაო — ბევრი ცალკე ინსტრუმენტი</span><span lang="en">Routine GIS work — many separate tools</span></h2>
+  <ul class="pts" lang="ka"><li>ნაკვეთების ძებნა კოდით გეობაზაში, კოორდინატების ამოღება რუკიდან, DWG-ის კონვერტაცია</li><li>ყოველი ამოცანა სხვადასხვა პროგრამას ან ხელით სამუშაოს ითხოვს</li><li>შედეგი უნდა მოხვდეს Excel-ში, Shapefile-სა და GeoPackage-ში</li><li>GIS_BOX ამ ამოცანებს ერთ ფანჯარაში აერთიანებს</li></ul>
+  <ul class="pts" lang="en"><li>Searching parcels by code in a geodatabase, pulling coordinates from maps, converting DWG</li><li>Each task needs a different program or manual work</li><li>Results must end up in Excel, Shapefile and GeoPackage</li><li>GIS_BOX brings these tasks into one window</li></ul>
+  <div class="note"><span lang="ka">პრობლემის აღწერა README-ის ხელსაწყოების სიიდანაა გამოყვანილი (ნაკვეთის ძებნა, კოორდინატების ამომღები, DWG/DXF კონვერტაცია და სხვ.).</span><span lang="en">The problem statement is derived from the README tool list (parcel search, coordinate extractor, DWG/DXF conversion, etc.).</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">პროდუქტი</span><span lang="en">Product</span></p>
+  <h2><span lang="ka">რა არის GIS_BOX</span><span lang="en">What GIS_BOX is</span></h2>
+  <div class="grid g2"><div class="card"><h3><span lang="ka">ერთი ფანჯარა</span><span lang="en">One window</span></h3><p><span lang="ka">11 ხელსაწყო ერთ აპლიკაციაში (tkinter)</span><span lang="en">11 tools in one application (tkinter)</span></p></div><div class="card"><h3><span lang="ka">ორენოვანი</span><span lang="en">Bilingual</span></h3><p><span lang="ka">ქართული / English — გადამრთველი ზედა ზოლში</span><span lang="en">Georgian / English — switch in the top bar</span></p></div><div class="card"><h3><span lang="ka">ღია კოდი</span><span lang="en">Open source</span></h3><p><span lang="ka">MIT ლიცენზია, კოდი GitHub-ზე</span><span lang="en">MIT license, code on GitHub</span></p></div><div class="card"><h3><span lang="ka">Windows და Linux</span><span lang="en">Windows and Linux</span></h3><p><span lang="ka">მზა ბილდები: v0.1.0 (2026-08-31)</span><span lang="en">Prebuilt: v0.1.0 (2026-08-31)</span></p></div></div>
+  <div class="note"><span lang="ka">წყარო: README, GitHub release v0.1.0 (Windows zip; Linux deb, rpm, AppImage, tar.gz). ბილდები დიდია (დაახლოებით 190–280 MB), რადგან GDAL-ს, OCR მოდელებს და სხვა ბიბლიოთეკებს შეიცავს.</span><span lang="en">Source: README, GitHub release v0.1.0 (Windows zip; Linux deb, rpm, AppImage, tar.gz). Builds are large (about 190–280 MB) because they bundle GDAL, OCR models and other libraries.</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">AI</span><span lang="en">AI</span></p>
+  <h2><span lang="ka">სად არის AI GIS_BOX-ში</span><span lang="en">Where the AI is in GIS_BOX</span></h2>
+  <div class="grid"><div class="card"><h3><span lang="ka">1 · AI-ით შექმნილი</span><span lang="en">1 · Built with AI</span></h3><p><span lang="ka">102 commit-იდან 101-ს Claude-ის co-author ჩანაწერი აქვს; ავტორი — გიორგი კაპანაძე</span><span lang="en">101 of 102 commits carry a Claude co-author trailer; author: Giorgi Kapanadze</span></p></div><div class="card"><h3><span lang="ka">2 · AI პროდუქტის შიგნით</span><span lang="en">2 · AI inside</span></h3><p><span lang="ka">ოფლაინ OCR (RapidOCR, ONNX Runtime) კოორდინატების ამომღებში: რუკა/PDF → კოორდინატთა ცხრილი</span><span lang="en">Offline OCR (RapidOCR, ONNX Runtime) in the coordinate extractor: map/PDF → coordinate table</span></p></div><div class="card"><h3><span lang="ka">3 · დეტერმინისტული GIS ბირთვი</span><span lang="en">3 · Deterministic GIS core</span></h3><p><span lang="ka">GDAL, geopandas, shapely — შედეგი გამეორებადია</span><span lang="en">GDAL, geopandas, shapely — reproducible results</span></p></div></div>
+  <div class="callout warn"><span lang="ka">პირდაპირ: GIS_BOX არ არის ჩატ-ბოტი; კოდში LLM ან გენერაციული AI-ის გამოძახება ვერ ვიპოვეთ.</span><span lang="en">To be clear: GIS_BOX is not a chatbot; we found no LLM or generative-AI calls in the code.</span></div>
+  <div class="note"><span lang="ka">ეს სლაიდი განზრახ ზუსტია. (1) git ისტორიაში 101 commit შეიცავს „Co-Authored-By: Claude“ ხაზს (მოდელები: Opus 4.8, Opus 5, Sonnet 5, Sonnet 5.5 — commit-ების trailer-ების მიხედვით). (2) OCR არის requirements.txt-ში (rapidocr-onnxruntime) და tools/coordextract/ocr.py-ში. (3) ბირთვი კლასიკური გეოდამუშავებაა.</span><span lang="en">This slide is deliberately precise. (1) 101 commits in git history contain a "Co-Authored-By: Claude" line (models per commit trailers: Opus 4.8, Opus 5, Sonnet 5, Sonnet 5.5). (2) OCR is in requirements.txt (rapidocr-onnxruntime) and tools/coordextract/ocr.py. (3) The core is classical geoprocessing.</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">AI ფუნქცია</span><span lang="en">AI feature</span></p>
+  <h2><span lang="ka">კოორდინატების ამომღები: რუკა → ცხრილი</span><span lang="en">Coordinate extractor: map → table</span></h2>
+  <div class="grid"><div class="card"><h3>1 · <span lang="ka">შემოტანა</span><span lang="en">Capture</span></h3><p><span lang="ka">PDF გვერდი ან ეკრანის არე</span><span lang="en">PDF page or screen area</span></p></div><div class="card"><h3>2 · <span lang="ka">OCR</span><span lang="en">OCR</span></h3><p><span lang="ka">ტექსტისა და რიცხვების ამოცნობა (ოფლაინ)</span><span lang="en">Recognise text and numbers (offline)</span></p></div><div class="card"><h3>3 · <span lang="ka">გეო-რეფერენსი</span><span lang="en">Georeferencing</span></h3><p><span lang="ka">საკონტროლო წერტილები, უმცირესი კვადრატები, RMSE</span><span lang="en">Control points, least squares, RMSE</span></p></div><div class="card"><h3>4 · <span lang="ka">ექსპორტი</span><span lang="en">Export</span></h3><p><span lang="ka">CSV, JSON, XLSX</span><span lang="en">CSV, JSON, XLSX</span></p></div></div>
+  <div class="callout tip"><span lang="ka">OCR-ის შედეგი ადამიანმა უნდა გადაამოწმოს; RMSE გეო-რეფერენსის სიზუსტეს აჩვენებს.</span><span lang="en">A person should review OCR output; RMSE shows the georeferencing accuracy.</span></div>
+  <div class="note"><span lang="ka">წყარო: docs/TECHNICAL.md §6.3 — capture.py (PyMuPDF ან ეკრანის დაჭერა), ocr.py (rapidocr-onnxruntime ნაგულისხმევი; pytesseract, easyocr — ალტერნატივა), georef.py (აფინური გარდაქმნა, 3+ საკონტროლო წერტილი, RMSE), export.py. OCR-ის სიზუსტის რიცხვი არ გვაქვს და არ ვასახელებთ.</span><span lang="en">Source: docs/TECHNICAL.md §6.3 — capture.py (PyMuPDF or screen capture), ocr.py (rapidocr-onnxruntime default; pytesseract, easyocr alternatives), georef.py (affine transform, 3+ control points, RMSE), export.py. We have no OCR accuracy figure and do not quote one.</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">ხელსაწყოები</span><span lang="en">Tools</span></p>
+  <h2><span lang="ka">11 ხელსაწყო</span><span lang="en">The 11 tools</span></h2>
+  <div class="grid"><div class="card"><h3><span lang="ka">ნაკვეთის ძებნა</span><span lang="en">Parcel search</span></h3><p><span lang="ka">File Geodatabase → SHP + GPKG</span><span lang="en">File Geodatabase → SHP + GPKG</span></p></div><div class="card"><h3><span lang="ka">კოორდინატების ამომღები</span><span lang="en">Coordinate extractor</span></h3><p><span lang="ka">რუკა/PDF → კოორდინატები</span><span lang="en">Map/PDF → coordinates</span></p></div><div class="card"><h3><span lang="ka">Shp → კოორდინატები</span><span lang="en">Shp → coordinates</span></h3><p><span lang="ka">წერტილები → Excel</span><span lang="en">Points → Excel</span></p></div><div class="card"><h3><span lang="ka">GDB → PostGIS</span><span lang="en">GDB → PostGIS</span></h3><p><span lang="ka">ინკრემენტული სინქრონი, განრიგი</span><span lang="en">Incremental sync, schedule</span></p></div><div class="card"><h3><span lang="ka">გეომეტრიების შეგროვება</span><span lang="en">Geometry → GeoPackage</span></h3><p><span lang="ka">ბევრი ფორმატი → ერთი GPKG</span><span lang="en">Many formats → one GPKG</span></p></div><div class="card"><h3><span lang="ka">DWG/DXF კონვერტაცია</span><span lang="en">DWG/DXF conversion</span></h3><p><span lang="ka">→ SHP / GPKG / GDB</span><span lang="en">→ SHP / GPKG / GDB</span></p></div><div class="card"><h3><span lang="ka">დაცვის ზონის კვეთა</span><span lang="en">Zone intersection</span></h3><p><span lang="ka">გადაკვეთის წერტილები, ფართობები</span><span lang="en">Crossing points, areas</span></p></div><div class="card"><h3><span lang="ka">კვეთა და შაბლონი</span><span lang="en">Crossing &amp; templates</span></h3><p><span lang="ka">ხაზი × ხაზი</span><span lang="en">Line × line</span></p></div><div class="card"><h3><span lang="ka">ბუფერების აგება</span><span lang="en">Line buffers</span></h3><p><span lang="ka">UTM 37/38</span><span lang="en">UTM 37/38</span></p></div><div class="card"><h3><span lang="ka">სახელების გადარქმევა</span><span lang="en">Rename → Latin</span></h3><p><span lang="ka">ქართული → ლათინური</span><span lang="en">Georgian → Latin</span></p></div><div class="card"><h3><span lang="ka">რუკის სერვისები</span><span lang="en">Map services</span></h3><p><span lang="ka">tile/WMS URL-ები</span><span lang="en">tile/WMS URLs</span></p></div></div>
+  <div class="note"><span lang="ka">ხელსაწყოების სია README-ის ცხრილიდანაა. დეტალები: docs/TECHNICAL.md.</span><span lang="en">The tool list comes from the README table. Details: docs/TECHNICAL.md.</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">ხარისხი</span><span lang="en">Quality</span></p>
+  <h2><span lang="ka">ინჟინერიის ხარისხი</span><span lang="en">Engineering quality</span></h2>
+  <ul class="pts" lang="ka"><li>159 ავტომატური ტესტის ფუნქცია (tests/)</li><li>CI Linux-ზე, მათ შორის GUI smoke-ტესტი (xvfb)</li><li>v0.1.0 (2026-08-31): Windows zip; Linux deb, rpm, AppImage, tar.gz</li><li>MIT ლიცენზია; DWG-ისთვის თან ატანია LibreDWG (GPL-3.0)</li><li>PostGIS-ის პაროლი ნაგულისხმევად მხოლოდ სესიაშია</li></ul>
+  <ul class="pts" lang="en"><li>159 automated test functions (tests/)</li><li>CI on Linux, including a GUI smoke test (xvfb)</li><li>v0.1.0 (2026-08-31): Windows zip; Linux deb, rpm, AppImage, tar.gz</li><li>MIT license; LibreDWG (GPL-3.0) is bundled for DWG</li><li>PostGIS password is session-only by default</li></ul>
+  <div class="note"><span lang="ka">ტესტების რაოდენობა = „def test_“ ფუნქციები tests/*.py-ში. CI-ის დეტალები: .github/workflows/ci.yml. უსაფრთხოება: README, GDB → PostGIS სექცია.</span><span lang="en">Test count = "def test_" functions in tests/*.py. CI details: .github/workflows/ci.yml. Security: README, GDB → PostGIS section.</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">იდეები</span><span lang="en">Ideas</span></p>
+  <h2><span lang="ka">შესაძლო AI მიმართულებები (წინადადებები)</span><span lang="en">Possible AI directions (proposals, not implemented)</span></h2>
+  <ul class="pts" lang="ka"><li>ამოცანის აღწერა ბუნებრივი ენით → ხელსაწყოს პარამეტრები (ადამიანი ადასტურებს)</li><li>ხელსაწყოების გამოტანა MCP სერვერად, რომ AI აგენტებმა გამოიყენონ</li><li>OCR შედეგის ავტომატური შემოწმება საკონტროლო წერტილებთან</li></ul>
+  <ul class="pts" lang="en"><li>Describe a task in natural language → tool parameters (a person confirms)</li><li>Expose the tools as an MCP server for AI agents</li><li>Automatic sanity-checks of OCR output against control points</li></ul>
+  <div class="callout warn"><span lang="ka">ეს არის წინადადებები და არა არსებული ფუნქციები.</span><span lang="en">These are proposals, not existing features.</span></div>
+  <div class="note"><span lang="ka">ეს არის იდეები განსახილველად და არა არსებული ფუნქციები. პროდუქტში ისინი დღეს არ არის.</span><span lang="en">These are ideas for discussion, not existing features. They are not in the product today.</span></div>
+</section>
+
+<section class="slide closing">
+  <p class="kicker">GIS DAY 2026</p>
+  <h2><span lang="ka">GIS_BOX: ჩამოტვირთე და სცადე</span><span lang="en">GIS_BOX: download and try</span></h2>
+  <p class="lead"><a href="https://github.com/GIS-GEORGIA/gis-toolkit" target="_blank" rel="noopener">github.com/GIS-GEORGIA/gis-toolkit</a></p>
+  <p style="margin-top:18px"><a class="qr" style="position:static;display:inline-flex" href="https://github.com/GIS-GEORGIA/gis-toolkit" target="_blank" rel="noopener"><img src="../assets/gisbox-qr.svg" alt="QR"><span><span lang="ka">დაასკანერე</span><span lang="en">Scan me</span><br><b>GIS_BOX</b></span></a></p>
+  <div class="note"><span lang="ka">QR კოდი გადაგიყვანთ GitHub რეპოზიტორიაში; Releases გვერდზე მზა ბილდებია Windows-ისა და Linux-ისთვის.</span><span lang="en">The QR code leads to the GitHub repository; the Releases page has prebuilt Windows and Linux builds.</span></div>
+</section>
+</main>
+<script src="../assets/deck.js"></script>
+</body>
+</html>

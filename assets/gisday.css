@@ -55,3 +55,4 @@ table th.rh{background:var(--panel)!important; color:var(--accent)!important}
 .qr img{width:clamp(84px,10vw,120px); height:auto; display:block}
 .qr span{font-size:clamp(11px,1.2vw,14px); line-height:1.35; max-width:170px} .qr b{font-size:1.1em; color:#0e8f7b}
 .slide.cover{position:absolute}
+.slide.cover h1{font-size:clamp(28px,4vw,50px)}
