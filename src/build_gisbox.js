@@ -33,15 +33,21 @@ ${noteH(s.note)}
 </section>`;
   let body = '';
   if (s.t === 'story') {
-    const box = (lab, p, cls) => `<div class="card${cls ? ' ' + cls : ''}"><h3>${L(lab[0], lab[1])}</h3><p>${L(p[0], p[1])}</p></div>`;
-    body = `  <div class="grid g2">${box(['პრობლემა', 'Problem'], s.problem)}${box(['როგორ დამეხმარა AI', 'How AI helped'], s.ai)}${box(['შედეგი', 'Result'], s.result)}${box(['გაკვეთილი', 'Lesson'], s.lesson)}</div>\n  <p class="small muted"><b>commits:</b> ${esc(s.evidence)}</p>`;
+    const blk = (lab, p) => `<div class="card"><h3>${L(lab[0], lab[1])}</h3><p>${L(p[0], p[1])}</p></div>`;
+    body = `  <div class="story"><figure><img src="../assets/${s.img}" alt=""><figcaption class="small muted">${L(s.cap[0], s.cap[1])}</figcaption></figure><div class="sblocks">${blk(['პრობლემა', 'Problem'], s.problem)}${blk(['როგორ დამეხმარა AI', 'How AI helped'], s.ai)}${blk(['შედეგი', 'Result'], s.result)}</div></div>\n` + callout([`გაკვეთილი: ${s.lesson[0]}`, `Lesson: ${s.lesson[1]}`], 'tip') + `\n  <p class="small muted">git: ${esc(s.when)}</p>`;
+  } else if (s.t === 'hero') {
+    body = `  <div class="story"><figure><img src="../assets/${s.img}" alt=""></figure><div><ul class="pts tight" lang="ka">${s.items.map(i => `<li>${esc(i[0])}</li>`).join('')}</ul><ul class="pts tight" lang="en">${s.items.map(i => `<li>${esc(i[1])}</li>`).join('')}</ul></div></div>`;
+  } else if (s.t === 'collage') {
+    body = `  <div class="collage">${s.tiles.map(t => `<figure><img src="../assets/${t[0]}" alt=""><figcaption class="small">${L(t[1], t[2])}</figcaption></figure>`).join('')}</div>`;
   } else if (s.t === 'stats') {
     body = `  <div class="grid">${s.items.map(i => `<div class="card"><h3 style="font-size:clamp(28px,4vw,48px);color:var(--accent2)">${esc(i[0])}</h3><p>${L(i[1], i[2])}</p></div>`).join('')}</div>\n  <p class="small muted">${L(s.foot[0], s.foot[1])}</p>`;
   } else if (s.t === 'table') {
     body = `  <table class="small"><tr><th>${L(s.head[0][0], s.head[0][1])}</th><th>${L(s.head[1][0], s.head[1][1])}</th></tr>${s.rows.map(r => `<tr><td><b>${esc(r[0])}</b></td><td>${L(r[1], r[2])}</td></tr>`).join('')}</table>`;
   } else if (s.t === 'bullets') {
     const lis = (i) => s.items.map(it => `<li>${esc(it[i])}</li>`).join('');
-    body = `  <ul class="pts" lang="ka">${lis(0)}</ul>\n  <ul class="pts" lang="en">${lis(1)}</ul>` + (s.idea ? '\n' + callout(['ეს არის წინადადებები და არა არსებული ფუნქციები.', 'These are proposals, not existing features.'], 'warn') : '');
+    const lists = `<ul class="pts" lang="ka">${lis(0)}</ul>\n  <ul class="pts" lang="en">${lis(1)}</ul>`;
+    const im = s.img ? `<img class="${s.imgKind === 'banner' ? 'banner' : 'sideimg'}" src="../assets/${s.img}" alt="">` : '';
+    body = s.imgKind === 'side' ? `  <div class="story"><div>${lists}</div><figure>${im}</figure></div>` : `  ${im}\n  ${lists}` + (s.idea ? '\n' + callout(['ეს არის წინადადებები და არა არსებული ფუნქციები.', 'These are proposals, not existing features.'], 'warn') : '');
   } else if (s.t === 'cards' || s.t === 'layers') {
     const cls = s.t === 'layers' ? 'grid' : (s.cols === 4 ? 'grid' : 'grid g2');
     body = `  <div class="${cls}">${s.cards.map(c => `<div class="card"><h3>${L(c[0], c[1])}</h3><p>${L(c[2], c[3])}</p></div>`).join('')}</div>` + (s.callout ? '\n' + callout(s.callout, 'warn') : '');
@@ -68,7 +74,7 @@ function pptx() {
     s.addNotes('ქართული / Georgian\n' + s0.note[0] + '\n\nEnglish\n' + s0.note[1]); return s;
   };
   const titles = (s, t, dark) => {
-    s.addText(t[0], { x: 0.6, y: 0.3, w: 12.1, h: 0.55, fontFace: KF, fontSize: 28, bold: true, color: dark ? WHITE : NAVY, margin: 0, valign: 'middle', isTextBox: true, fit: 'shrink' });
+    s.addText(t[0], { x: 0.6, y: 0.3, w: dark ? 12.1 : 10.5, h: 0.55, fontFace: KF, fontSize: 28, bold: true, color: dark ? WHITE : NAVY, margin: 0, valign: 'middle', isTextBox: true, fit: 'shrink' });
     s.addText(t[1], { x: 0.6, y: 0.88, w: 12.1, h: 0.45, fontFace: HF, fontSize: 20, bold: true, color: dark ? TEAL : OK, margin: 0, valign: 'middle', isTextBox: true, fit: 'shrink' });
   };
   const foot = s => s.addText('GIS DAY 2026 · GIS_BOX · github.com/GIS-GEORGIA/gis-toolkit', { x: 0.6, y: 7.05, w: 10.5, h: 0.3, fontFace: BF, fontSize: 10, color: MUTE, margin: 0, isTextBox: true });
@@ -100,19 +106,35 @@ function pptx() {
       s.addImage({ path: ROOT + 'assets/gisbox-qr.png', x: 0.8, y: 4.6, w: 1.7, h: 1.7, hyperlink: { url: REPO } });
     } else {
       const s = base(sd, false); titles(s, sd.title, false); logo(s); foot(s);
+      const img = (path, x, y, w, h) => { s.addImage({ path: ROOT + 'assets/' + path, x, y, w, h, sizing: { type: 'contain', w, h } }); };
       if (sd.t === 'story') {
-        const lab = [['პრობლემა', 'Problem', sd.problem, PALE], ['როგორ დამეხმარა AI', 'How AI helped', sd.ai, 'D5F2EC'], ['შედეგი', 'Result', sd.result, PALE], ['გაკვეთილი', 'Lesson', sd.lesson, AMBER_BG]];
-        lab.forEach(([ka, en, tx, fill], i) => {
-          const x = 0.6 + (i % 2) * 6.15, y = 1.5 + Math.floor(i / 2) * 2.3;
-          s.addShape('roundRect', { x, y, w: 5.95, h: 2.15, fill: { color: fill }, line: { color: fill }, rectRadius: 0.08 });
-          s.addText([run(ka + ' / ' + en, { fontFace: KF, fontSize: 13, bold: true, color: NAVY, breakLine: true, paraSpaceAfter: 4 }), run(tx[0], { fontFace: KF, fontSize: 13, color: INK, breakLine: true, paraSpaceAfter: 3 }), run(tx[1], { fontFace: BF, fontSize: 12, color: MUTE })], { x: x + 0.18, y: y + 0.1, w: 5.6, h: 1.95, margin: 0, valign: 'top', isTextBox: true, fit: 'shrink' });
+        s.addShape('roundRect', { x: 0.55, y: 1.5, w: 6.5, h: 3.95, fill: { color: 'F3F6FB' }, line: { color: 'C9D3E6', width: 1 }, rectRadius: 0.05 });
+        img(sd.img, 0.65, 1.58, 6.3, 3.5);
+        s.addText([run(sd.cap[0] + ' / ', { fontFace: KF, fontSize: 10.5, color: MUTE }), run(sd.cap[1], { fontFace: BF, fontSize: 10.5, color: MUTE })], { x: 0.65, y: 5.1, w: 6.3, h: 0.3, margin: 0, isTextBox: true });
+        s.addShape('roundRect', { x: 0.55, y: 5.65, w: 6.5, h: 1.2, fill: { color: AMBER_BG }, line: { color: AMBER, width: 1 }, rectRadius: 0.06 });
+        s.addText([run('გაკვეთილი / Lesson', { fontFace: KF, fontSize: 12, bold: true, color: AMBER, breakLine: true }), run(sd.lesson[0], { fontFace: KF, fontSize: 12.5, color: INK, breakLine: true }), run(sd.lesson[1], { fontFace: BF, fontSize: 12, color: MUTE })], { x: 0.75, y: 5.7, w: 6.1, h: 1.1, margin: 0, valign: 'middle', isTextBox: true });
+        [['პრობლემა', 'Problem', sd.problem, PALE], ['როგორ დამეხმარა AI', 'How AI helped', sd.ai, 'D5F2EC'], ['შედეგი', 'Result', sd.result, PALE]].forEach(([ka, en, tx, fill], i) => {
+          const y = 1.5 + i * 1.8;
+          s.addShape('roundRect', { x: 7.3, y, w: 5.45, h: 1.68, fill: { color: fill }, line: { color: fill }, rectRadius: 0.08 });
+          s.addText([run(ka + ' / ' + en, { fontFace: KF, fontSize: 12.5, bold: true, color: NAVY, breakLine: true, paraSpaceAfter: 3 }), run(tx[0], { fontFace: KF, fontSize: 12, color: INK, breakLine: true, paraSpaceAfter: 2 }), run(tx[1], { fontFace: BF, fontSize: 11, color: MUTE })], { x: 7.48, y: y + 0.08, w: 5.1, h: 1.55, margin: 0, valign: 'top', isTextBox: true, fit: 'shrink' });
         });
-        s.addText([run('commits: ', { fontFace: BF, fontSize: 10, bold: true, color: MUTE }), run(sd.evidence, { fontFace: BF, fontSize: 10, color: MUTE })], { x: 0.6, y: 6.15, w: 12.1, h: 0.8, margin: 0, valign: 'top', isTextBox: true });
+        s.addText('git: ' + sd.when, { x: 9.3, y: 6.9, w: 3.45, h: 0.25, align: 'right', fontFace: BF, fontSize: 10, color: MUTE, margin: 0, isTextBox: true });
+      } else if (sd.t === 'hero') {
+        s.addShape('roundRect', { x: 0.55, y: 1.5, w: 7.7, h: 4.95, fill: { color: 'F3F6FB' }, line: { color: 'C9D3E6', width: 1 }, rectRadius: 0.05 });
+        img(sd.img, 0.65, 1.6, 7.5, 4.75);
+        const its = sd.items.flatMap((it, i) => [run(it[0], { fontFace: KF, fontSize: 16, color: INK, breakLine: true }), run(it[1], { fontFace: BF, fontSize: 14, color: MUTE, breakLine: i < sd.items.length - 1, paraSpaceAfter: 14 })]);
+        s.addText(its, { x: 8.6, y: 1.6, w: 4.2, h: 4.8, margin: 0, valign: 'top', isTextBox: true });
+      } else if (sd.t === 'collage') {
+        sd.tiles.forEach((t, i) => { const x = 0.6 + (i % 3) * 4.1, y = 1.5 + Math.floor(i / 3) * 2.8;
+          s.addShape('roundRect', { x, y, w: 3.9, h: 2.4, fill: { color: 'F3F6FB' }, line: { color: 'C9D3E6', width: 1 }, rectRadius: 0.05 });
+          img(t[0], x + 0.08, y + 0.08, 3.74, 2.24);
+          s.addText([run(t[1], { fontFace: KF, fontSize: 12, bold: true, color: NAVY, breakLine: true }), run(t[2], { fontFace: BF, fontSize: 11, color: MUTE })], { x, y: y + 2.42, w: 3.9, h: 0.4, margin: 0, isTextBox: true }); });
       } else if (sd.t === 'stats') {
-        sd.items.forEach((it, i) => { const x = 0.6 + (i % 3) * 4.1, y = 1.6 + Math.floor(i / 3) * 2.45;
-          s.addShape('roundRect', { x, y, w: 3.9, h: 2.25, fill: { color: PALE }, line: { color: PALE }, rectRadius: 0.08 });
-          s.addText(it[0], { x: x + 0.2, y: y + 0.15, w: 3.5, h: 1.1, fontFace: HF, fontSize: 48, bold: true, color: OK, margin: 0, isTextBox: true });
-          s.addText([run(it[1], { fontFace: KF, fontSize: 14, color: INK, breakLine: true }), run(it[2], { fontFace: BF, fontSize: 13, color: MUTE })], { x: x + 0.2, y: y + 1.25, w: 3.5, h: 0.9, margin: 0, valign: 'top', isTextBox: true }); });
+        const two = sd.items.length === 4, cw = two ? 5.95 : 3.9, step = two ? 6.15 : 4.1, per = two ? 2 : 3;
+        sd.items.forEach((it, i) => { const x = 0.6 + (i % per) * step, y = 1.6 + Math.floor(i / per) * 2.45;
+          s.addShape('roundRect', { x, y, w: cw, h: 2.25, fill: { color: PALE }, line: { color: PALE }, rectRadius: 0.08 });
+          s.addText(it[0], { x: x + 0.2, y: y + 0.15, w: cw - 0.4, h: 1.1, fontFace: HF, fontSize: 48, bold: true, color: OK, margin: 0, isTextBox: true });
+          s.addText([run(it[1], { fontFace: KF, fontSize: 14, color: INK, breakLine: true }), run(it[2], { fontFace: BF, fontSize: 13, color: MUTE })], { x: x + 0.2, y: y + 1.25, w: cw - 0.4, h: 0.9, margin: 0, valign: 'top', isTextBox: true }); });
         s.addText([run(sd.foot[0] + ' / ', { fontFace: KF, fontSize: 13, color: MUTE }), run(sd.foot[1], { fontFace: BF, fontSize: 13, color: MUTE })], { x: 0.6, y: 6.55, w: 12.1, h: 0.4, margin: 0, isTextBox: true });
       } else if (sd.t === 'table') {
         const hdr = (a, b) => ({ text: [run(a, { fontFace: KF, fontSize: 12, bold: true, color: WHITE, breakLine: true }), run(b, { fontFace: BF, fontSize: 12, bold: true, color: WHITE })], options: { fill: { color: NAVY } } });
@@ -121,8 +143,9 @@ function pptx() {
         s.addTable(rows, { x: 0.6, y: 1.55, w: 12.1, colW: [2.0, 10.1], border: { type: 'solid', color: 'C9D3E6', pt: 0.75 }, margin: [0.03, 0.1, 0.03, 0.1], rowH: [0.5].concat(sd.rows.map(() => 0.58)) });
       } else if (sd.t === 'bullets') {
         const items = sd.items.flatMap((it, i) => [run(it[0], { fontFace: KF, fontSize: 20, color: INK, breakLine: true }), run(it[1], { fontFace: BF, fontSize: 17, color: MUTE, breakLine: i < sd.items.length - 1, paraSpaceAfter: 14 })]);
-        s.addText(items, { x: 0.6, y: 1.7, w: sd.idea ? 12.1 : 8.2, h: sd.idea ? 3.8 : 5.0, margin: 0, valign: 'top', isTextBox: true });
-        if (!sd.idea) s.addImage({ path: ROOT + 'assets/gisbox-logo.png', x: 9.6, y: 2.2, w: 2.8, h: 2.8 });
+        s.addText(items, { x: 0.6, y: 1.7, w: sd.img ? 8.1 : 12.1, h: 5.0, margin: 0, valign: 'top', isTextBox: true });
+        if (sd.imgKind === 'side') img(sd.img, 9.0, 1.7, 3.8, 3.8);
+        else if (sd.imgKind === 'banner') img(sd.img, 9.0, 3.2, 3.8, 1.4);
         if (sd.idea) call(s, ['ეს არის წინადადებები და არა არსებული ფუნქციები.', 'These are proposals, not existing features.'], 5.9);
       } else if (sd.t === 'cards') {
         const c = sd.cols, n = sd.cards.length, w = (12.1 - 0.25 * (c - 1)) / c, h = sd.small ? 1.6 : 2.45;
