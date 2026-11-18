@@ -1,0 +1,117 @@
+// Slide content for "GIS_BOX: how I built a GIS toolkit with AI".
+// Every factual statement is taken from the public git history / docs of https://github.com/GIS-GEORGIA/gis-toolkit (checked 2026-11-18).
+// The commit subjects quoted as "evidence" are verbatim. Nothing here describes the author's private prompts or conversations.
+const NOTE_PERSONAL = ['[აქ დაამატე შენი პირადი ისტორია: რა მოსთხოვე AI-ს და რა მოხდა]', '[Add your own story here: what you asked the AI and what happened]'];
+const story = (kicker, title, problem, ai, result, lesson, evidence, note) => ({ t: 'story', kicker, title, problem, ai, result, lesson, evidence, note: [note[0] + '\n' + NOTE_PERSONAL[0], note[1] + '\n' + NOTE_PERSONAL[1]] });
+
+module.exports = [
+  { t: 'cover', kicker: ['GIS DAY 2026 · 18.11.2026', 'GIS DAY 2026 · 18 Nov 2026'],
+    title: ['GIS_BOX: როგორ ავაგე GIS ხელსაწყო AI-ის დახმარებით', 'GIS_BOX: how I built a GIS toolkit with AI'],
+    sub: ['გიორგი კაპანაძე · 102 commit · 2026-08-20 → 2026-11-04', 'Giorgi Kapanadze · 102 commits · 2026-08-20 → 2026-11-04'],
+    note: ['ეს არის GIS_BOX-ის შექმნის ამბავი: რა პრობლემები შემხვდა და როგორ გადავჭერი ისინი AI-ის (Claude) დახმარებით. ფაქტები git ისტორიიდანაა (github.com/GIS-GEORGIA/gis-toolkit), გადამოწმებულია 2026-11-18-ზე. პროდუქტი თავიდან ბოლომდე ჩემია; AI იყო თანამშრომელი.', 'This is the story of building GIS_BOX: the problems I met and how I solved them with AI (Claude). Facts come from the git history (github.com/GIS-GEORGIA/gis-toolkit), checked 2026-11-18. The product is mine from start to finish; AI was a collaborator.'] },
+
+  { t: 'stats', kicker: ['პროდუქტი', 'Product'], title: ['GIS_BOX ციფრებში', 'GIS_BOX in numbers'],
+    items: [['11', 'ხელსაწყო ერთ ფანჯარაში', 'tools in one window'], ['102', 'commit', 'commits'], ['26', 'აქტიური დღე (11 კვირაში)', 'active days (over 11 weeks)'], ['≈11.9k', 'Python-ის ხაზი (ტესტებისა და vendor-ის გარეშე)', 'lines of Python (excluding tests and vendor)'], ['159', 'ავტომატური ტესტის ფუნქცია', 'automated test functions'], ['715', 'ხაზი ტექნიკურ დოკუმენტაციაში', 'lines of technical documentation']],
+    foot: ['ორენოვანი (ქართული / English) · MIT · Windows და Linux', 'Bilingual (Georgian / English) · MIT · Windows and Linux'],
+    note: ['ციფრები git ისტორიიდანაა: 102 commit, 26 დღე commit-ით, 2026-08-20-დან 2026-11-04-მდე; Python-ის ხაზები — git ls-files *.py vendor/ და tests/-ის გარეშე; 159 = „def test_“ ფუნქციები; docs/TECHNICAL.md = 715 ხაზი.', 'Numbers come from git: 102 commits, 26 days with commits, 2026-08-20 to 2026-11-04; Python lines — git ls-files *.py excluding vendor/ and tests/; 159 = "def test_" functions; docs/TECHNICAL.md = 715 lines.'] },
+
+  { t: 'table', kicker: ['ქრონოლოგია', 'Timeline'], title: ['11 კვირა: ძირითადი ეტაპები', '11 weeks: key milestones'],
+    head: [['თარიღი', 'Date'], ['ეტაპი', 'Milestone']],
+    rows: [['2026-08-20', 'პირველი ვერსია: ორენოვანი კრებული და ნაკვეთის ძებნა', 'First version: bilingual toolkit and parcel search'],
+      ['2026-08-31', 'ტესტები, CI, მზა ბილდები, release v0.1.0', 'Tests, CI, prebuilt builds, release v0.1.0'],
+      ['2026-09-01', 'GDB → PostGIS: სინქრონი, განრიგი, აუდიტი', 'GDB → PostGIS: sync, scheduler, audit'],
+      ['2026-09-02', 'ქართული შეყვანის პრობლემა და ცხრილი → სურათი', 'Georgian input bug and table → image'],
+      ['2026-09-25', 'Linux მხარდაჭერა და TECHNICAL.md', 'Linux support and TECHNICAL.md'],
+      ['2026-09-30', 'DWG/DXF კონვერტაცია ArcGIS-ის გარეშე', 'DWG/DXF conversion without ArcGIS'],
+      ['2026-10-08', 'ბუფერების აგება', 'Line buffers'],
+      ['2026-11-04', 'ბოლო commit', 'Latest commit']],
+    note: ['თარიღები commit-ების ისტორიიდანაა.', 'Dates come from the commit history.'] },
+
+  { t: 'bullets', kicker: ['მეთოდი', 'Method'], title: ['როგორ ვმუშაობდი AI-თან', 'How I worked with AI'],
+    items: [['პატარა, ხშირი ნაბიჯები: 102 commit, 26 აქტიური დღე', 'Small, frequent steps: 102 commits, 26 active days'],
+      ['ხარვეზები სწრაფად იხურებოდა: 12 commit შეიცავს fix / bug / crash-ს', 'Bugs were closed quickly: 12 commits mention fix / bug / crash'],
+      ['რეალური მონაცემებით შემოწმება, მაგ. 5 რეალური DWG ფაილი', 'Checked on real data, e.g. five real DWG files'],
+      ['ტესტები და CI ადრევე — 2026-08-31-დან', 'Tests and CI early — from 2026-08-31'],
+      ['დოკუმენტაცია კოდის პარალელურად']].map(it => (it.length === 1 ? [it[0], 'Documentation alongside the code'] : it)),
+    note: ['ეს სლაიდი git ისტორიიდან გამომდინარე დაკვირვებაა. fix/bug/crash = 12 commit-ის სათაური. დაამატე შენი პირადი გამოცდილება: როგორ აყალიბებდი თხოვნებს.', 'This slide is an observation from the git history. fix/bug/crash = 12 commit subjects. Add your own experience: how you phrased requests.'] },
+
+  story(['ამბავი 1', 'Story 1'], ['ქართული ტექსტი Tk-ში იყო „????“', 'Georgian input showed as “????” in Tk'],
+    ['tkinter-ში ქართული შეყვანა „????“-ად იქცეოდა (Tk-ის სისტემური კოდირება); შაბლონების დამატება ქართულად ვერ ხერხდებოდა', 'In tkinter, Georgian input turned into “????” (Tk system encoding); adding templates in Georgian was not possible'],
+    ['ერთი გასწორება საკმარისი არ აღმოჩნდა: იმავე დღეს რამდენიმე მიდგომა — კოდირება, შეყვანა Tk-ის გვერდის ავლით, ლათინურ→ქართული გადამყვანი', 'One fix was not enough: several approaches the same day — encoding, input that bypasses Tk, a Latin→Georgian converter'],
+    ['გადამყვანი ამუშავდა; ფაილი გახდა შაბლონების ერთადერთი წყარო; იგივე გადაწყვეტა მეორე დღეს დოკუმენტების ძიების ხელსაწყოშიც გამოვიყენეთ', 'The converter worked; the file became the single source of templates; the same solution was reused the next day in the document search tool'],
+    ['როცა პირდაპირი გასწორება არ მუშაობს, გვერდის ავლით გადაწყვეტა შედეგს იძლევა', 'When a direct fix does not work, a workaround can still deliver'],
+    '2026-09-02: Fix Georgian keyboard input showing as "????" (Tk system encoding) · Add Latin→Georgian converter for the template input · 2026-09-03: doc_search: Latin→Georgian input to bypass Tk keyboard "????" bug',
+    ['კომიტების თანმიმდევრობა აჩვენებს რამდენიმე იტერაციას ერთ დღეში და საბოლოოდ — გვერდის ავლით გადაწყვეტას.', 'The commit sequence shows several iterations in one day and finally a workaround.']),
+
+  story(['ამბავი 2', 'Story 2'], ['DWG ArcGIS-ისა და AutoCAD-ის გარეშე', 'DWG without ArcGIS or AutoCAD'],
+    ['DWG/DXF ფაილების SHP/GPKG/GDB-ში გადაყვანა უნდა მომხდარიყო ფასიანი პროგრამების გარეშე', 'DWG/DXF files had to be converted to SHP/GPKG/GDB without paid software'],
+    ['ჯერ სისტემური GDAL-ით ვცადეთ და გამოვლინდა libopencad-ის რეალური შეზღუდვა (README-ის მიხედვით ის მხოლოდ ძველ R2000-ს კითხულობს); შემდეგ ჩავაშენეთ GNU LibreDWG, სარეზერვოდ — ezdxf', 'We first tried system GDAL and exposed libopencad’s real limit (per the README it reads only old R2000); then bundled GNU LibreDWG, with ezdxf as a fallback'],
+    ['commit-ის მიხედვით 5-დან 5 რეალური DWG ფაილი გადაიყვანა; LibreDWG (GPL-3.0) ცალკე ბინარია, არაფრის დაყენება არ სჭირდება', 'Per the commit, 5 of 5 real DWG files convert; LibreDWG (GPL-3.0) is a separate binary, nothing to install'],
+    ['შეზღუდვა გამოჩნდა რეალურ ფაილებზე ტესტირებით, არა დოკუმენტაციით', 'The limit showed up by testing on real files, not by reading docs'],
+    '2026-09-30: dwg_convert: bridge DWG through system GDAL, expose libopencad\'s real limit · bundle GNU LibreDWG — real, working DWG reading · ezdxf rescue closes the gap -- 5/5 real DWG files now convert',
+    ['ყველა ეს commit ერთი დღისაა (2026-09-30).', 'All these commits are from one day (2026-09-30).']),
+
+  story(['ამბავი 3', 'Story 3'], ['ცხრილი ArcGIS Pro-ს layout-ისთვის', 'A table for an ArcGIS Pro layout'],
+    ['კოორდინატთა ცხრილი უნდა მოხვედრილიყო ArcGIS Pro-ს layout-ში ისე, რომ არ გაწელილიყო', 'The coordinate table had to land in an ArcGIS Pro layout without being stretched'],
+    ['ცხრილი სურათად იქცა; იმავე დღეს რამდენიმე გასწორება: Excel-ის მსგავსი პროპორციები, მკვეთრი ტექსტი (supersampling), შავი სურათის შეცდომა (გამჭვირვალობის ქვეშ თეთრი RGB)', 'The table became an image; several fixes the same day: Excel-like proportions, crisp text (supersampling), the all-black output bug (white RGB under transparency)'],
+    ['ღილაკი „📷 Image“ ინახავს გამჭვირვალე PNG-ს', 'The “📷 Image” button saves a transparent PNG'],
+    ['პატარა ვიზუალური ხარვეზები სწრაფ იტერაციებში იხსნება', 'Small visual defects get fixed in quick iterations'],
+    '2026-09-02: "📷 Image" copy for ArcGIS Pro layout · 📷 saves a transparent PNG (no stretch in ArcGIS Pro) · table_image: crisp text via high scale + 2x supersampling · table_image: fix all-black output — white RGB under transparency',
+    ['commit-ები: table_image-ის რამდენიმე გასწორება 2026-09-02-ს.', 'Commits: several table_image fixes on 2026-09-02.']),
+
+  story(['ამბავი 4', 'Story 4'], ['ინტერფეისი იყინებოდა', 'The interface froze'],
+    ['GDB-ის შრეებისა და ველების წაკითხვისას ფანჯარა იყინებოდა; ჩანართი ნელა იხსნებოდა', 'The window froze while reading GDB layers and fields; the tab opened slowly'],
+    ['ჯერ გაუქმება და პროგრესის ზოლი; შემდეგ წაკითხვა UI ნაკადის გარეთ; ბოლოს pandas/pyogrio-ს ზარმაცი იმპორტი', 'First cancel and a progress bar; then reading off the UI thread; finally lazy import of pandas/pyogrio'],
+    ['commit-ის მიხედვით ჩანართი მყისიერად იხსნება და წაკითხვა აღარ აყინებს ფანჯარას', 'Per the commits, the tab opens instantly and reading no longer freezes the window'],
+    ['რეალური გამოყენება აჩვენებს, სად ნელდება აპლიკაცია', 'Real use shows where an app is slow'],
+    '2026-09-01: Parcel search: cancel + progress bar · 2026-09-07: parcel_search: read GDB layers/fields off the UI thread (no more freeze) · 2026-09-18: parcel_search: lazy-load pandas/pyogrio so opening the tab is instant',
+    ['სამი ეტაპი სამ სხვადასხვა თარიღზე.', 'Three steps on three different dates.']),
+
+  story(['ამბავი 5', 'Story 5'], ['ტესტები და უსაფრთხო რეფაქტორინგი', 'Tests and safe refactoring'],
+    ['ლოგიკა GUI-სთან იყო გადახლართული და ძნელად შემოწმებადი', 'Logic was entangled with the GUI and hard to test'],
+    ['ლოგიკა გამოვიტანეთ GUI-სგან დამოუკიდებელ მოდულებში (search_core და სხვ.) და დავწერეთ ტესტები; CI-მ აჩვენა, რომ ზოგი ტესტი ჩუმად გამოტოვებული იყო', 'We moved logic into GUI-free modules (search_core and others) and wrote tests; CI revealed that some tests were silently skipped'],
+    ['159 ტესტის ფუნქცია; CI Linux-ზე, GUI smoke-ტესტით', '159 test functions; CI on Linux with a GUI smoke test'],
+    ['ტესტები არის უსაფრთხოების ბადე, როცა კოდს AI-თან ერთად წერ', 'Tests are the safety net when you write code with AI'],
+    '2026-08-31: Add test suite and CI test job; extract pure logic modules · 2026-09-01: Extract search logic to tools/search_core (GUI-free, testable) · 2026-09-30: tests: fix dwg_convert pure tests being skipped in CI (no geopandas)',
+    ['ჩუმად გამოტოვებული ტესტების პრობლემა 2026-09-30-ის commit-ის სათაურშია.', 'The silently skipped tests issue is in the subject of the 2026-09-30 commit.']),
+
+  story(['ამბავი 6', 'Story 6'], ['ბილდები Python-ის გარეშე', 'Builds that need no Python'],
+    ['მომხმარებელს უნდა შეეძლოს აპლიკაციის გაშვება Python-ის დაყენების გარეშე Windows-ზე და Linux-ზე', 'Users should run the app without installing Python, on Windows and Linux'],
+    ['PyInstaller და release workflow; CI-ის ჩავარდნები იმავე დღეს გამოსწორდა (nfpm-ის ინსტალაცია, deb/rpm კოლიზია); Linux-ის მხარდაჭერა მოგვიანებით', 'PyInstaller and a release workflow; CI failures were fixed the same day (nfpm install, deb/rpm collision); Linux support came later'],
+    ['release v0.1.0 (2026-08-31): Windows zip; Linux deb, rpm, AppImage, tar.gz', 'release v0.1.0 (2026-08-31): Windows zip; Linux deb, rpm, AppImage, tar.gz'],
+    ['CI-ის ჩავარდნა სწრაფი უკუკავშირია — ერთი-ორი იტერაცია და მზადაა', 'A failing CI run is quick feedback — a couple of iterations and it is done'],
+    '2026-08-31: Packaging: standalone builds via PyInstaller + release workflow · Release: install nfpm via Go and make Linux packaging non-fatal · Release: fix nfpm deb/rpm content collision (use type: tree) · 2026-09-25: linux: cross-platform support',
+    ['release-ის აქტივები გადამოწმებულია GitHub-ზე (v0.1.0).', 'Release assets verified on GitHub (v0.1.0).']),
+
+  story(['ამბავი 7', 'Story 7'], ['დაცვის ზონის გადაკვეთა', 'Protection-zone crossings'],
+    ['ნაკვეთის საზღვარი და დაცვის ზონა: საჭიროა გადაკვეთის წერტილები, ფართობები და Excel-ში გამოტანა მომხმარებლის შაბლონით', 'Parcel boundary and protection zone: crossing points, areas and an Excel export in the user’s template'],
+    ['shapely-ზე დაფუძნებული ლოგიკა; ეტაპობრივად: წერტილების სტაბილური დანომვრა დერეფნის გასწვრივ, ფართობები (ნაკვეთი / მოჭრილი / დარჩენილი), Excel-ის საბოლოო შაბლონი', 'shapely-based logic; step by step: stable point numbering along the corridor, areas (parcel / cut / remainder), the final Excel template'],
+    ['რეალურ მონაცემებზე გამოვლენილი შემთხვევები დაიხურა: გაფრთხილება არაღრმა გადაკვეთაზე, 3D (Z) ხაზების ჩავარდნის გასწორება', 'Edge cases found on real data were closed: a warning on shallow crossings, a fix for the 3D (Z) line crash'],
+    ['რეალურ მონაცემებზე ჩანს კიდეებზე შემთხვევები', 'Real data reveals the edge cases'],
+    '2026-09-21: zone_intersect: order crossing points along the zone corridor (stable numbering) · 2026-10-01: compute parcel/cut/remainder areas · xlsx_format: match the user\'s finalized areas-block template exactly · 2026-10-08: Fix crash on 3D (Z) lines in crossing-angle check',
+    ['დომენური წესები (შაბლონი, ზონები) ჩემია; AI ახორციელებდა იმპლემენტაციას.', 'The domain rules (template, zones) are mine; AI did the implementation.']),
+
+  { t: 'bullets', kicker: ['კოდის გარდა', 'Beyond code'], title: ['დოკუმენტაცია და ორენოვანი ინტერფეისი', 'Documentation and the bilingual interface'],
+    items: [['docs/TECHNICAL.md — 715 ხაზი: არქიტექტურა, ალგორითმები, შეფუთვა, ტესტირება (2026-09-25)', 'docs/TECHNICAL.md — 715 lines: architecture, algorithms, packaging, testing (2026-09-25)'],
+      ['ორენოვანი README და ორენოვანი ინტერფეისი ქართული / English', 'Bilingual README and a bilingual Georgian / English interface'],
+      ['თარგმნის ცენტრალიზებული მექანიზმი (tools/i18n)', 'A centralized translation lookup (tools/i18n)'],
+      ['hover-ის მინიშნებები და სრული გზამკვლევი GDB → PostGIS-ისთვის', 'Hover tooltips and a full usage guide for GDB → PostGIS']],
+    note: ['წყარო: commit-ები „docs: add TECHNICAL.md“, „i18n: centralize the translation lookup“, „GDB → PostGIS: hover tooltips + full usage guide“.', 'Source: commits "docs: add TECHNICAL.md", "i18n: centralize the translation lookup", "GDB → PostGIS: hover tooltips + full usage guide".'] },
+
+  { t: 'bullets', kicker: ['ადამიანის როლი', 'The human role'], title: ['რას წყვეტდა ადამიანი', 'What the human decided'],
+    items: [['რა ამოცანა მჭირდება: საკადასტრო კოდები, დაცვის ზონები, კოორდინატთა ცხრილები', 'Which task I need: cadastral codes, protection zones, coordinate tables'],
+      ['სად გამოიყენება შედეგი: ArcGIS Pro layout, Excel-ის საბოლოო შაბლონი', 'Where the result is used: an ArcGIS Pro layout, the final Excel template'],
+      ['დომენური წესები: ბუფერებისთვის მხოლოდ EPSG:32637 / 32638', 'Domain rules: buffers only in EPSG:32637 / 32638'],
+      ['მიღება რეალური მონაცემებით, მაგ. 5 რეალური DWG ფაილი', 'Acceptance on real data, e.g. five real DWG files']],
+    note: ['ეს სლაიდი git ისტორიის ფაქტებზეა დაფუძნებული (შაბლონი, EPSG შეზღუდვა, 5/5 DWG). დაამატე შენი სიტყვებით, რას წყვეტდი შენ.', 'This slide rests on facts from the git history (template, EPSG restriction, 5/5 DWG). Add in your own words what you decided.'] },
+
+  { t: 'bullets', kicker: ['დასკვნა', 'Takeaways'], title: ['რა ვისწავლე', 'What I learned'],
+    items: [['პატარა ნაბიჯები და ხშირი შემოწმება მუშაობს', 'Small steps and frequent checks work'],
+      ['ტესტები და CI ადრევე აუცილებელია', 'Tests and CI are essential early'],
+      ['რეალური ფაილები და მონაცემები აჩვენებს ნამდვილ შეზღუდვებს', 'Real files and data reveal the true limits'],
+      ['როცა პირდაპირი გზა არ მუშაობს, ეძებე გვერდის ავლით გადაწყვეტა']].map(it => (it.length === 1 ? [it[0], 'When the direct way fails, look for a workaround'] : it)),
+    note: ['დასკვნები ზემოთ მოყვანილი ამბებიდანაა. დაამატე შენი პირადი დასკვნა.', 'The takeaways come from the stories above. Add your own conclusion.'] },
+
+  { t: 'close', title: ['GIS_BOX: ჩამოტვირთე და სცადე', 'GIS_BOX: download and try'], sub: ['github.com/GIS-GEORGIA/gis-toolkit', 'github.com/GIS-GEORGIA/gis-toolkit'],
+    note: ['QR კოდი გადაგიყვანთ GitHub რეპოზიტორიაში; Releases გვერდზე მზა ბილდებია Windows-ისა და Linux-ისთვის.', 'The QR code leads to the GitHub repository; the Releases page has prebuilt Windows and Linux builds.'] },
+];

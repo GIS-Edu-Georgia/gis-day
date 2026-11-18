@@ -6,67 +6,7 @@ const QR = require('qrcode');
 const ROOT = __dirname + '/../';
 const REPO = 'https://github.com/GIS-GEORGIA/gis-toolkit';
 
-const SLIDES = [
-  { t: 'cover', kicker: ['GIS DAY 2026 · 18.11.2026', 'GIS DAY 2026 · 18 Nov 2026'],
-    title: ['GIS_BOX: AI-ის დახმარებით შექმნილი GIS ხელსაწყოების კრებული', 'GIS_BOX: an AI-assisted GIS toolkit'],
-    sub: ['11 ხელსაწყო ერთ ფანჯარაში — ორენოვანი, ღია კოდით (MIT)', '11 tools in one window — bilingual, open source (MIT)'],
-    note: ['GIS_BOX არის GIS ხელსაწყოების კრებული ერთ ფანჯარაში (tkinter). რეპოზიტორია: github.com/GIS-GEORGIA/gis-toolkit, ლიცენზია MIT. ფაქტები გადამოწმებულია 2026-11-18-ზე.', 'GIS_BOX is a collection of GIS tools in one window (tkinter). Repository: github.com/GIS-GEORGIA/gis-toolkit, MIT license. Facts checked on 2026-11-18.'] },
-  { t: 'bullets', kicker: ['პრობლემა', 'Problem'], title: ['რუტინული GIS სამუშაო — ბევრი ცალკე ინსტრუმენტი', 'Routine GIS work — many separate tools'],
-    items: [
-      ['ნაკვეთების ძებნა კოდით გეობაზაში, კოორდინატების ამოღება რუკიდან, DWG-ის კონვერტაცია', 'Searching parcels by code in a geodatabase, pulling coordinates from maps, converting DWG'],
-      ['ყოველი ამოცანა სხვადასხვა პროგრამას ან ხელით სამუშაოს ითხოვს', 'Each task needs a different program or manual work'],
-      ['შედეგი უნდა მოხვდეს Excel-ში, Shapefile-სა და GeoPackage-ში', 'Results must end up in Excel, Shapefile and GeoPackage'],
-      ['GIS_BOX ამ ამოცანებს ერთ ფანჯარაში აერთიანებს', 'GIS_BOX brings these tasks into one window']],
-    note: ['პრობლემის აღწერა README-ის ხელსაწყოების სიიდანაა გამოყვანილი (ნაკვეთის ძებნა, კოორდინატების ამომღები, DWG/DXF კონვერტაცია და სხვ.).', 'The problem statement is derived from the README tool list (parcel search, coordinate extractor, DWG/DXF conversion, etc.).'] },
-  { t: 'cards', kicker: ['პროდუქტი', 'Product'], title: ['რა არის GIS_BOX', 'What GIS_BOX is'], cols: 2,
-    cards: [
-      ['ერთი ფანჯარა', 'One window', '11 ხელსაწყო ერთ აპლიკაციაში (tkinter)', '11 tools in one application (tkinter)'],
-      ['ორენოვანი', 'Bilingual', 'ქართული / English — გადამრთველი ზედა ზოლში', 'Georgian / English — switch in the top bar'],
-      ['ღია კოდი', 'Open source', 'MIT ლიცენზია, კოდი GitHub-ზე', 'MIT license, code on GitHub'],
-      ['Windows და Linux', 'Windows and Linux', 'მზა ბილდები: v0.1.0 (2026-08-31)', 'Prebuilt: v0.1.0 (2026-08-31)']],
-    note: ['წყარო: README, GitHub release v0.1.0 (Windows zip; Linux deb, rpm, AppImage, tar.gz). ბილდები დიდია (დაახლოებით 190–280 MB), რადგან GDAL-ს, OCR მოდელებს და სხვა ბიბლიოთეკებს შეიცავს.', 'Source: README, GitHub release v0.1.0 (Windows zip; Linux deb, rpm, AppImage, tar.gz). Builds are large (about 190–280 MB) because they bundle GDAL, OCR models and other libraries.'] },
-  { t: 'layers', kicker: ['AI', 'AI'], title: ['სად არის AI GIS_BOX-ში', 'Where the AI is in GIS_BOX'],
-    cards: [
-      ['1 · AI-ით შექმნილი', '1 · Built with AI', '102 commit-იდან 101-ს Claude-ის co-author ჩანაწერი აქვს; ავტორი — გიორგი კაპანაძე', '101 of 102 commits carry a Claude co-author trailer; author: Giorgi Kapanadze'],
-      ['2 · AI პროდუქტის შიგნით', '2 · AI inside', 'ოფლაინ OCR (RapidOCR, ONNX Runtime) კოორდინატების ამომღებში: რუკა/PDF → კოორდინატთა ცხრილი', 'Offline OCR (RapidOCR, ONNX Runtime) in the coordinate extractor: map/PDF → coordinate table'],
-      ['3 · დეტერმინისტული GIS ბირთვი', '3 · Deterministic GIS core', 'GDAL, geopandas, shapely — შედეგი გამეორებადია', 'GDAL, geopandas, shapely — reproducible results']],
-    callout: ['პირდაპირ: GIS_BOX არ არის ჩატ-ბოტი; კოდში LLM ან გენერაციული AI-ის გამოძახება ვერ ვიპოვეთ.', 'To be clear: GIS_BOX is not a chatbot; we found no LLM or generative-AI calls in the code.'],
-    note: ['ეს სლაიდი განზრახ ზუსტია. (1) git ისტორიაში 101 commit შეიცავს „Co-Authored-By: Claude“ ხაზს (მოდელები: Opus 4.8, Opus 5, Sonnet 5, Sonnet 5.5 — commit-ების trailer-ების მიხედვით). (2) OCR არის requirements.txt-ში (rapidocr-onnxruntime) და tools/coordextract/ocr.py-ში. (3) ბირთვი კლასიკური გეოდამუშავებაა.', 'This slide is deliberately precise. (1) 101 commits in git history contain a "Co-Authored-By: Claude" line (models per commit trailers: Opus 4.8, Opus 5, Sonnet 5, Sonnet 5.5). (2) OCR is in requirements.txt (rapidocr-onnxruntime) and tools/coordextract/ocr.py. (3) The core is classical geoprocessing.'] },
-  { t: 'flow', kicker: ['AI ფუნქცია', 'AI feature'], title: ['კოორდინატების ამომღები: რუკა → ცხრილი', 'Coordinate extractor: map → table'],
-    steps: [['შემოტანა', 'Capture', 'PDF გვერდი ან ეკრანის არე', 'PDF page or screen area'], ['OCR', 'OCR', 'ტექსტისა და რიცხვების ამოცნობა (ოფლაინ)', 'Recognise text and numbers (offline)'], ['გეო-რეფერენსი', 'Georeferencing', 'საკონტროლო წერტილები, უმცირესი კვადრატები, RMSE', 'Control points, least squares, RMSE'], ['ექსპორტი', 'Export', 'CSV, JSON, XLSX', 'CSV, JSON, XLSX']],
-    callout: ['OCR-ის შედეგი ადამიანმა უნდა გადაამოწმოს; RMSE გეო-რეფერენსის სიზუსტეს აჩვენებს.', 'A person should review OCR output; RMSE shows the georeferencing accuracy.'],
-    note: ['წყარო: docs/TECHNICAL.md §6.3 — capture.py (PyMuPDF ან ეკრანის დაჭერა), ocr.py (rapidocr-onnxruntime ნაგულისხმევი; pytesseract, easyocr — ალტერნატივა), georef.py (აფინური გარდაქმნა, 3+ საკონტროლო წერტილი, RMSE), export.py. OCR-ის სიზუსტის რიცხვი არ გვაქვს და არ ვასახელებთ.', 'Source: docs/TECHNICAL.md §6.3 — capture.py (PyMuPDF or screen capture), ocr.py (rapidocr-onnxruntime default; pytesseract, easyocr alternatives), georef.py (affine transform, 3+ control points, RMSE), export.py. We have no OCR accuracy figure and do not quote one.'] },
-  { t: 'cards', kicker: ['ხელსაწყოები', 'Tools'], title: ['11 ხელსაწყო', 'The 11 tools'], cols: 4, small: true,
-    cards: [
-      ['ნაკვეთის ძებნა', 'Parcel search', 'File Geodatabase → SHP + GPKG', 'File Geodatabase → SHP + GPKG'],
-      ['კოორდინატების ამომღები', 'Coordinate extractor', 'რუკა/PDF → კოორდინატები', 'Map/PDF → coordinates'],
-      ['Shp → კოორდინატები', 'Shp → coordinates', 'წერტილები → Excel', 'Points → Excel'],
-      ['GDB → PostGIS', 'GDB → PostGIS', 'ინკრემენტული სინქრონი, განრიგი', 'Incremental sync, schedule'],
-      ['გეომეტრიების შეგროვება', 'Geometry → GeoPackage', 'ბევრი ფორმატი → ერთი GPKG', 'Many formats → one GPKG'],
-      ['DWG/DXF კონვერტაცია', 'DWG/DXF conversion', '→ SHP / GPKG / GDB', '→ SHP / GPKG / GDB'],
-      ['დაცვის ზონის კვეთა', 'Zone intersection', 'გადაკვეთის წერტილები, ფართობები', 'Crossing points, areas'],
-      ['კვეთა და შაბლონი', 'Crossing & templates', 'ხაზი × ხაზი', 'Line × line'],
-      ['ბუფერების აგება', 'Line buffers', 'UTM 37/38', 'UTM 37/38'],
-      ['სახელების გადარქმევა', 'Rename → Latin', 'ქართული → ლათინური', 'Georgian → Latin'],
-      ['რუკის სერვისები', 'Map services', 'tile/WMS URL-ები', 'tile/WMS URLs']],
-    note: ['ხელსაწყოების სია README-ის ცხრილიდანაა. დეტალები: docs/TECHNICAL.md.', 'The tool list comes from the README table. Details: docs/TECHNICAL.md.'] },
-  { t: 'bullets', kicker: ['ხარისხი', 'Quality'], title: ['ინჟინერიის ხარისხი', 'Engineering quality'],
-    items: [
-      ['159 ავტომატური ტესტის ფუნქცია (tests/)', '159 automated test functions (tests/)'],
-      ['CI Linux-ზე, მათ შორის GUI smoke-ტესტი (xvfb)', 'CI on Linux, including a GUI smoke test (xvfb)'],
-      ['v0.1.0 (2026-08-31): Windows zip; Linux deb, rpm, AppImage, tar.gz', 'v0.1.0 (2026-08-31): Windows zip; Linux deb, rpm, AppImage, tar.gz'],
-      ['MIT ლიცენზია; DWG-ისთვის თან ატანია LibreDWG (GPL-3.0)', 'MIT license; LibreDWG (GPL-3.0) is bundled for DWG'],
-      ['PostGIS-ის პაროლი ნაგულისხმევად მხოლოდ სესიაშია', 'PostGIS password is session-only by default']],
-    note: ['ტესტების რაოდენობა = „def test_“ ფუნქციები tests/*.py-ში. CI-ის დეტალები: .github/workflows/ci.yml. უსაფრთხოება: README, GDB → PostGIS სექცია.', 'Test count = "def test_" functions in tests/*.py. CI details: .github/workflows/ci.yml. Security: README, GDB → PostGIS section.'] },
-  { t: 'bullets', kicker: ['იდეები', 'Ideas'], title: ['შესაძლო AI მიმართულებები (წინადადებები)', 'Possible AI directions (proposals, not implemented)'], idea: true,
-    items: [
-      ['ამოცანის აღწერა ბუნებრივი ენით → ხელსაწყოს პარამეტრები (ადამიანი ადასტურებს)', 'Describe a task in natural language → tool parameters (a person confirms)'],
-      ['ხელსაწყოების გამოტანა MCP სერვერად, რომ AI აგენტებმა გამოიყენონ', 'Expose the tools as an MCP server for AI agents'],
-      ['OCR შედეგის ავტომატური შემოწმება საკონტროლო წერტილებთან', 'Automatic sanity-checks of OCR output against control points']],
-    note: ['ეს არის იდეები განსახილველად და არა არსებული ფუნქციები. პროდუქტში ისინი დღეს არ არის.', 'These are ideas for discussion, not existing features. They are not in the product today.'] },
-  { t: 'close', title: ['GIS_BOX: ჩამოტვირთე და სცადე', 'GIS_BOX: download and try'], sub: ['github.com/GIS-GEORGIA/gis-toolkit', 'github.com/GIS-GEORGIA/gis-toolkit'],
-    note: ['QR კოდი გადაგიყვანთ GitHub რეპოზიტორიაში; Releases გვერდზე მზა ბილდებია Windows-ისა და Linux-ისთვის.', 'The QR code leads to the GitHub repository; the Releases page has prebuilt Windows and Linux builds.'] },
-];
+const SLIDES = require('./gisbox_slides');
 
 // ---------------- HTML ----------------
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -92,7 +32,14 @@ ${noteH(s.note)}
 ${noteH(s.note)}
 </section>`;
   let body = '';
-  if (s.t === 'bullets') {
+  if (s.t === 'story') {
+    const box = (lab, p, cls) => `<div class="card${cls ? ' ' + cls : ''}"><h3>${L(lab[0], lab[1])}</h3><p>${L(p[0], p[1])}</p></div>`;
+    body = `  <div class="grid g2">${box(['პრობლემა', 'Problem'], s.problem)}${box(['როგორ დამეხმარა AI', 'How AI helped'], s.ai)}${box(['შედეგი', 'Result'], s.result)}${box(['გაკვეთილი', 'Lesson'], s.lesson)}</div>\n  <p class="small muted"><b>commits:</b> ${esc(s.evidence)}</p>`;
+  } else if (s.t === 'stats') {
+    body = `  <div class="grid">${s.items.map(i => `<div class="card"><h3 style="font-size:clamp(28px,4vw,48px);color:var(--accent2)">${esc(i[0])}</h3><p>${L(i[1], i[2])}</p></div>`).join('')}</div>\n  <p class="small muted">${L(s.foot[0], s.foot[1])}</p>`;
+  } else if (s.t === 'table') {
+    body = `  <table class="small"><tr><th>${L(s.head[0][0], s.head[0][1])}</th><th>${L(s.head[1][0], s.head[1][1])}</th></tr>${s.rows.map(r => `<tr><td><b>${esc(r[0])}</b></td><td>${L(r[1], r[2])}</td></tr>`).join('')}</table>`;
+  } else if (s.t === 'bullets') {
     const lis = (i) => s.items.map(it => `<li>${esc(it[i])}</li>`).join('');
     body = `  <ul class="pts" lang="ka">${lis(0)}</ul>\n  <ul class="pts" lang="en">${lis(1)}</ul>` + (s.idea ? '\n' + callout(['ეს არის წინადადებები და არა არსებული ფუნქციები.', 'These are proposals, not existing features.'], 'warn') : '');
   } else if (s.t === 'cards' || s.t === 'layers') {
@@ -153,7 +100,26 @@ function pptx() {
       s.addImage({ path: ROOT + 'assets/gisbox-qr.png', x: 0.8, y: 4.6, w: 1.7, h: 1.7, hyperlink: { url: REPO } });
     } else {
       const s = base(sd, false); titles(s, sd.title, false); logo(s); foot(s);
-      if (sd.t === 'bullets') {
+      if (sd.t === 'story') {
+        const lab = [['პრობლემა', 'Problem', sd.problem, PALE], ['როგორ დამეხმარა AI', 'How AI helped', sd.ai, 'D5F2EC'], ['შედეგი', 'Result', sd.result, PALE], ['გაკვეთილი', 'Lesson', sd.lesson, AMBER_BG]];
+        lab.forEach(([ka, en, tx, fill], i) => {
+          const x = 0.6 + (i % 2) * 6.15, y = 1.5 + Math.floor(i / 2) * 2.3;
+          s.addShape('roundRect', { x, y, w: 5.95, h: 2.15, fill: { color: fill }, line: { color: fill }, rectRadius: 0.08 });
+          s.addText([run(ka + ' / ' + en, { fontFace: KF, fontSize: 13, bold: true, color: NAVY, breakLine: true, paraSpaceAfter: 4 }), run(tx[0], { fontFace: KF, fontSize: 13, color: INK, breakLine: true, paraSpaceAfter: 3 }), run(tx[1], { fontFace: BF, fontSize: 12, color: MUTE })], { x: x + 0.18, y: y + 0.1, w: 5.6, h: 1.95, margin: 0, valign: 'top', isTextBox: true, fit: 'shrink' });
+        });
+        s.addText([run('commits: ', { fontFace: BF, fontSize: 10, bold: true, color: MUTE }), run(sd.evidence, { fontFace: BF, fontSize: 10, color: MUTE })], { x: 0.6, y: 6.15, w: 12.1, h: 0.8, margin: 0, valign: 'top', isTextBox: true });
+      } else if (sd.t === 'stats') {
+        sd.items.forEach((it, i) => { const x = 0.6 + (i % 3) * 4.1, y = 1.6 + Math.floor(i / 3) * 2.45;
+          s.addShape('roundRect', { x, y, w: 3.9, h: 2.25, fill: { color: PALE }, line: { color: PALE }, rectRadius: 0.08 });
+          s.addText(it[0], { x: x + 0.2, y: y + 0.15, w: 3.5, h: 1.1, fontFace: HF, fontSize: 48, bold: true, color: OK, margin: 0, isTextBox: true });
+          s.addText([run(it[1], { fontFace: KF, fontSize: 14, color: INK, breakLine: true }), run(it[2], { fontFace: BF, fontSize: 13, color: MUTE })], { x: x + 0.2, y: y + 1.25, w: 3.5, h: 0.9, margin: 0, valign: 'top', isTextBox: true }); });
+        s.addText([run(sd.foot[0] + ' / ', { fontFace: KF, fontSize: 13, color: MUTE }), run(sd.foot[1], { fontFace: BF, fontSize: 13, color: MUTE })], { x: 0.6, y: 6.55, w: 12.1, h: 0.4, margin: 0, isTextBox: true });
+      } else if (sd.t === 'table') {
+        const hdr = (a, b) => ({ text: [run(a, { fontFace: KF, fontSize: 12, bold: true, color: WHITE, breakLine: true }), run(b, { fontFace: BF, fontSize: 12, bold: true, color: WHITE })], options: { fill: { color: NAVY } } });
+        const rows = [[hdr(sd.head[0][0], sd.head[0][1]), hdr(sd.head[1][0], sd.head[1][1])]];
+        sd.rows.forEach(r => rows.push([{ text: r[0], options: { fontFace: BF, fontSize: 13, bold: true, color: NAVY, valign: 'middle', fill: { color: PALE } } }, { text: [run(r[1], { fontFace: KF, fontSize: 13, color: INK, breakLine: true }), run(r[2], { fontFace: BF, fontSize: 12, color: MUTE })], options: { valign: 'middle' } }]));
+        s.addTable(rows, { x: 0.6, y: 1.55, w: 12.1, colW: [2.0, 10.1], border: { type: 'solid', color: 'C9D3E6', pt: 0.75 }, margin: [0.03, 0.1, 0.03, 0.1], rowH: [0.5].concat(sd.rows.map(() => 0.58)) });
+      } else if (sd.t === 'bullets') {
         const items = sd.items.flatMap((it, i) => [run(it[0], { fontFace: KF, fontSize: 20, color: INK, breakLine: true }), run(it[1], { fontFace: BF, fontSize: 17, color: MUTE, breakLine: i < sd.items.length - 1, paraSpaceAfter: 14 })]);
         s.addText(items, { x: 0.6, y: 1.7, w: sd.idea ? 12.1 : 8.2, h: sd.idea ? 3.8 : 5.0, margin: 0, valign: 'top', isTextBox: true });
         if (!sd.idea) s.addImage({ path: ROOT + 'assets/gisbox-logo.png', x: 9.6, y: 2.2, w: 2.8, h: 2.8 });
