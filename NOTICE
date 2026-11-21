@@ -6,3 +6,8 @@ They are NOT covered by this repository's licenses. Check Esri's terms before re
 Slide engine (assets/deck.css, assets/deck.js) is from
 https://github.com/GIS-Edu-Georgia/python-course (MIT).
 Terrio screenshot (assets/terrio-ui.png): https://github.com/opengeos/terrio (MIT).
+
+Projects deck (presentations/our-projects.html, downloads/GIS_DAY_OUR_PROJECTS.pptx):
+- Map card pictures (assets/projects/card_*.jpg) come from GeoClass (MIT) and show OpenStreetMap data and Tracestrack Topo tiles:
+  (c) OpenStreetMap contributors (ODbL); Tracestrack Topo (CC BY 4.0). Credit is shown on the slide.
+- Screenshots of linux-scripts (MIT) and GeoClass (MIT) windows/pages were captured on 2026-11-21.
