@@ -54,7 +54,7 @@ ${noteH(s.note)}
     const blk = (lab, p) => `<div class="card"><h3>${L(lab[0], lab[1])}</h3><p>${L(p[0], p[1])}</p></div>`;
     body = `  <div class="story"><figure><img src="../assets/${s.img}" alt=""><figcaption class="small muted">${L(s.cap[0], s.cap[1])}</figcaption></figure><div class="sblocks">${blk(['პრობლემა', 'Problem'], s.problem)}${blk(['როგორ დამეხმარა AI', 'How AI helped'], s.ai)}${blk(['შედეგი', 'Result'], s.result)}</div></div>\n` + callout([`გაკვეთილი: ${s.lesson[0]}`, `Lesson: ${s.lesson[1]}`], 'tip') + `\n  <p class="small muted">git: ${esc(s.when)}</p>`;
   } else if (s.t === 'hero') {
-    body = `  <div class="story"><figure><img src="../assets/${s.img}" alt=""></figure><div><ul class="pts tight" lang="ka">${s.items.map(i => `<li>${esc(i[0])}</li>`).join('')}</ul><ul class="pts tight" lang="en">${s.items.map(i => `<li>${esc(i[1])}</li>`).join('')}</ul></div></div>`;
+    body = `  <div class="story${s.narrow ? ' narrow' : ''}"><figure><img src="../assets/${s.img}" alt=""></figure><div><ul class="pts tight" lang="ka">${s.items.map(i => `<li>${esc(i[0])}</li>`).join('')}</ul><ul class="pts tight" lang="en">${s.items.map(i => `<li>${esc(i[1])}</li>`).join('')}</ul></div></div>`;
   } else if (s.t === 'collage') {
     body = `  <div class="collage" style="grid-template-columns:repeat(${s.cols || 3},1fr)">${s.tiles.map(t => `<figure><img src="../assets/${t[0]}" alt=""><figcaption class="small">${L(t[1], t[2])}</figcaption></figure>`).join('')}</div>` + (s.credit ? `\n  <p class="small muted">${L(s.credit[0], s.credit[1])}</p>` : '');
   } else if (s.t === 'stats') {
@@ -147,10 +147,11 @@ function pptx() {
         });
         s.addText('git: ' + sd.when, { x: 9.3, y: 6.9, w: 3.45, h: 0.25, align: 'right', fontFace: BF, fontSize: 10, color: MUTE, margin: 0, isTextBox: true });
       } else if (sd.t === 'hero') {
-        s.addShape('roundRect', { x: 0.55, y: 1.5, w: 7.7, h: 4.95, fill: { color: 'F3F6FB' }, line: { color: 'C9D3E6', width: 1 }, rectRadius: 0.05 });
-        img(sd.img, 0.65, 1.6, 7.5, 4.75);
+        const hw = sd.narrow ? 3.1 : 7.7, tx = sd.narrow ? 4.0 : 8.6;
+        s.addShape('roundRect', { x: 0.55, y: 1.5, w: hw, h: 5.3, fill: { color: 'F3F6FB' }, line: { color: 'C9D3E6', width: 1 }, rectRadius: 0.05 });
+        img(sd.img, 0.65, 1.6, hw - 0.2, 5.1);
         const its = sd.items.flatMap((it, i) => [run(it[0], { fontFace: KF, fontSize: 16, color: INK, breakLine: true }), run(it[1], { fontFace: BF, fontSize: 14, color: MUTE, breakLine: i < sd.items.length - 1, paraSpaceAfter: 14 })]);
-        s.addText(its, { x: 8.6, y: 1.6, w: 4.2, h: 4.8, margin: 0, valign: 'top', isTextBox: true });
+        s.addText(its, { x: tx, y: 1.6, w: 12.7 - tx, h: 5.0, margin: 0, valign: 'top', isTextBox: true });
       } else if (sd.t === 'collage') {
         const cols = sd.cols || 3, gap = 0.2, tw = (12.1 - gap * (cols - 1)) / cols, th = cols === 3 ? 2.4 : Math.min(tw, 3.9);
         sd.tiles.forEach((t, i) => { const x = 0.6 + (i % cols) * (tw + gap), y = 1.5 + Math.floor(i / cols) * (th + 0.4);
@@ -169,7 +170,7 @@ function pptx() {
         const hdr = (a, b) => ({ text: [run(a, { fontFace: KF, fontSize: 12, bold: true, color: WHITE, breakLine: true }), run(b, { fontFace: BF, fontSize: 12, bold: true, color: WHITE })], options: { fill: { color: NAVY } } });
         const rows = [[hdr(sd.head[0][0], sd.head[0][1]), hdr(sd.head[1][0], sd.head[1][1])]];
         sd.rows.forEach(r => rows.push([{ text: r[0], options: { fontFace: BF, fontSize: 13, bold: true, color: NAVY, valign: 'middle', fill: { color: PALE } } }, { text: [run(r[1], { fontFace: KF, fontSize: 13, color: INK, breakLine: true }), run(r[2], { fontFace: BF, fontSize: 12, color: MUTE })], options: { valign: 'middle' } }]));
-        s.addTable(rows, { x: 0.6, y: 1.55, w: 12.1, colW: [2.0, 10.1], border: { type: 'solid', color: 'C9D3E6', pt: 0.75 }, margin: [0.03, 0.1, 0.03, 0.1], rowH: [0.5].concat(sd.rows.map(() => (sd.rows.length > 8 ? 0.5 : 0.58))) });
+        s.addTable(rows, { x: 0.6, y: 1.55, w: 12.1, colW: [sd.col1 || 2.0, 12.1 - (sd.col1 || 2.0)], border: { type: 'solid', color: 'C9D3E6', pt: 0.75 }, margin: [0.03, 0.1, 0.03, 0.1], rowH: [0.5].concat(sd.rows.map(() => (sd.rows.length > 8 ? 0.5 : 0.58))) });
       } else if (sd.t === 'bullets') {
         const items = sd.items.flatMap((it, i) => [run(it[0], { fontFace: KF, fontSize: 20, color: INK, breakLine: true }), run(it[1], { fontFace: BF, fontSize: 17, color: MUTE, breakLine: i < sd.items.length - 1, paraSpaceAfter: 14 })]);
         s.addText(items, { x: 0.6, y: 1.7, w: sd.img ? 8.1 : 12.1, h: 5.0, margin: 0, valign: 'top', isTextBox: true });
