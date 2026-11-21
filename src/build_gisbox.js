@@ -6,8 +6,14 @@ const QR = require('qrcode');
 const ROOT = __dirname + '/../';
 const REPO = 'https://github.com/GIS-GEORGIA/gis-toolkit';
 
-const DECK = process.env.DECK === 'projects' ? 'projects' : 'gisbox';
-const CFG = DECK === 'projects' ? { slides: './projects_slides', html: 'our-projects.html', pptx: 'GIS_DAY_OUR_PROJECTS.pptx', title: 'GIS DAY: Our open projects', foot: 'GIS DAY 2026 · GIS_BOX · GeoClass · linux-scripts · gisday.qgis.ge' } : { slides: './gisbox_slides', html: 'gis-box.html', pptx: 'GIS_BOX_AI_PRESENTATION.pptx', title: 'GIS_BOX: how I built a GIS toolkit with AI', foot: 'GIS DAY 2026 · GIS_BOX · github.com/GIS-GEORGIA/gis-toolkit' };
+const DECK = process.env.DECK || 'gisbox';
+const CFGS = {
+  gisbox: { slides: './gisbox_slides', html: 'gis-box.html', pptx: 'GIS_BOX_AI_PRESENTATION.pptx', title: 'GIS_BOX: how I built a GIS toolkit with AI', foot: 'GIS DAY 2026 · GIS_BOX · github.com/GIS-GEORGIA/gis-toolkit' },
+  projects: { slides: './projects_slides', html: 'our-projects.html', pptx: 'GIS_DAY_OUR_PROJECTS.pptx', title: 'GIS DAY: Our open projects', foot: 'GIS DAY 2026 · GIS_BOX · GeoClass · linux-scripts · gisday.qgis.ge' },
+  geoclass: { slides: './geoclass_slides', html: 'geoclass.html', pptx: 'GIS_DAY_GEOCLASS.pptx', title: 'GeoClass: a geography lesson with phones', foot: 'GIS DAY 2026 · GeoClass · geoclass.qgis.ge' },
+  linux: { slides: './linux_slides', html: 'linux-scripts.html', pptx: 'GIS_DAY_LINUX_SCRIPTS.pptx', title: 'linux-scripts: small tools for Linux', foot: 'GIS DAY 2026 · linux-scripts · github.com/kapo-Toolkits/linux-scripts' },
+};
+const CFG = CFGS[DECK] || CFGS.gisbox;
 const SLIDES = require(CFG.slides);
 const DEFAULT_QR = { name: 'gisbox', url: REPO, label: 'github.com/GIS-GEORGIA/gis-toolkit', ka: 'დაასკანერე და გახსენი რეპოზიტორია', en: 'Scan to open the repository' };
 const qrFile = n => (n === 'gisbox' ? 'gisbox-qr' : 'qr-' + n);
@@ -163,7 +169,7 @@ function pptx() {
         const hdr = (a, b) => ({ text: [run(a, { fontFace: KF, fontSize: 12, bold: true, color: WHITE, breakLine: true }), run(b, { fontFace: BF, fontSize: 12, bold: true, color: WHITE })], options: { fill: { color: NAVY } } });
         const rows = [[hdr(sd.head[0][0], sd.head[0][1]), hdr(sd.head[1][0], sd.head[1][1])]];
         sd.rows.forEach(r => rows.push([{ text: r[0], options: { fontFace: BF, fontSize: 13, bold: true, color: NAVY, valign: 'middle', fill: { color: PALE } } }, { text: [run(r[1], { fontFace: KF, fontSize: 13, color: INK, breakLine: true }), run(r[2], { fontFace: BF, fontSize: 12, color: MUTE })], options: { valign: 'middle' } }]));
-        s.addTable(rows, { x: 0.6, y: 1.55, w: 12.1, colW: [2.0, 10.1], border: { type: 'solid', color: 'C9D3E6', pt: 0.75 }, margin: [0.03, 0.1, 0.03, 0.1], rowH: [0.5].concat(sd.rows.map(() => 0.58)) });
+        s.addTable(rows, { x: 0.6, y: 1.55, w: 12.1, colW: [2.0, 10.1], border: { type: 'solid', color: 'C9D3E6', pt: 0.75 }, margin: [0.03, 0.1, 0.03, 0.1], rowH: [0.5].concat(sd.rows.map(() => (sd.rows.length > 8 ? 0.5 : 0.58))) });
       } else if (sd.t === 'bullets') {
         const items = sd.items.flatMap((it, i) => [run(it[0], { fontFace: KF, fontSize: 20, color: INK, breakLine: true }), run(it[1], { fontFace: BF, fontSize: 17, color: MUTE, breakLine: i < sd.items.length - 1, paraSpaceAfter: 14 })]);
         s.addText(items, { x: 0.6, y: 1.7, w: sd.img ? 8.1 : 12.1, h: 5.0, margin: 0, valign: 'top', isTextBox: true });
@@ -178,7 +184,7 @@ function pptx() {
         call(s, sd.callout, 5.6);
       } else if (sd.t === 'flow') {
         sd.steps.forEach((cd, i) => { box(s, 0.6 + i * 3.1, 1.8, 2.85, 3.0, cd[0], cd[1], cd[2], cd[3], PALE, 16);
-          if (i < 3) s.addShape('line', { x: 3.45 + i * 3.1, y: 3.3, w: 0.25, h: 0, line: { color: NAVY, width: 2, endArrowType: 'triangle' } }); });
+          if (i < sd.steps.length - 1) s.addShape('line', { x: 3.45 + i * 3.1, y: 3.3, w: 0.25, h: 0, line: { color: NAVY, width: 2, endArrowType: 'triangle' } }); });
         call(s, sd.callout, 5.3);
       }
     }

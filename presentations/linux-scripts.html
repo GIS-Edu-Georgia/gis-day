@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>linux-scripts: small tools for Linux</title>
+<link rel="stylesheet" href="../assets/deck.css">
+<link rel="stylesheet" href="../assets/gisday.css">
+</head>
+<body>
+<main class="deck">
+
+<section class="slide cover">
+  <p class="kicker"><span lang="ka">GIS DAY 2026</span><span lang="en">GIS DAY 2026</span></p>
+  <h1><span lang="ka">linux-scripts: პატარა ხელსაწყოები Linux-ისთვის</span><span lang="en">linux-scripts: small tools for Linux</span></h1>
+  <p class="lead" style="margin-top:16px"><span lang="ka">თითო ამოცანა — თითო ხელსაწყო: QGIS-ის დაყენებიდან USB-ის უსაფრთხო გამორთვამდე</span><span lang="en">One task, one tool: from installing QGIS to safely ejecting a USB drive</span></p>
+  <a class="qr" href="https://github.com/kapo-Toolkits/linux-scripts" target="_blank" rel="noopener"><img src="../assets/qr-linux.svg" alt="QR"><span><span lang="ka">დაასკანერე და გახსენი რეპოზიტორია</span><span lang="en">Scan to open the repository</span><br><b>kapo-Toolkits/linux-scripts</b></span></a>
+  <div class="note"><span lang="ka">linux-scripts — პრაქტიკული Linux ხელსაწყოები კონკრეტული ამოცანებისთვის; თითო საქაღალდე, თითო README; უმეტესს აქვს ფანჯარა (EN / ქართული) და ბრძანების ხაზი. MIT ლიცენზია. ფაქტები გადამოწმებულია 2026-11-21-ზე. [აქ დაამატე შენი სიტყვები]</span><span lang="en">linux-scripts — practical Linux utilities for specific tasks; one folder and one README each; most have a window (EN / Georgian) and a command line. MIT license. Facts checked on 2026-11-21. [Add your own words here]</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">იდეა</span><span lang="en">The idea</span></p>
+  <h2><span lang="ka">ერთი ამოცანა — ერთი ხელსაწყო</span><span lang="en">One task, one tool</span></h2>
+  <div class="story"><figure><img src="../assets/projects/ls_installer.png" alt=""></figure><div><ul class="pts tight" lang="ka"><li>თითო საქაღალდე, თითო README; ერთმანეთისგან დამოუკიდებლად გამოიყენება</li><li>უმეტესს აქვს პატარა ფანჯარა (EN / ქართული) და ბრძანების ხაზიც</li><li>დაყენება root-ის გარეშეც შეიძლება: ./install.sh --prefix ~/.local all</li></ul><ul class="pts tight" lang="en"><li>One folder and one README each; usable on their own</li><li>Most have a small window (EN / Georgian) and a command line</li><li>Can be installed without root: ./install.sh --prefix ~/.local all</li></ul></div></div>
+  <div class="note"><span lang="ka">სურათი — „Toolkit Installer“-ის ფანჯარა (ნამდვილი ეკრანის სურათი, ზედა ნაწილი). წყარო: README.</span><span lang="en">The image is the “Toolkit Installer” window (a real screenshot, top part). Source: README.</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">ხელსაწყოები</span><span lang="en">Tools</span></p>
+  <h2><span lang="ka">რა შედის კრებულში</span><span lang="en">What is in the toolkit</span></h2>
+  <table class="small"><tr><th><span lang="ka">ხელსაწყო</span><span lang="en">Tool</span></th><th><span lang="ka">რას აკეთებს</span><span lang="en">What it does</span></th></tr><tr><td><b>usb-eject</b></td><td><span lang="ka">USB დისკის უსაფრთხო გამორთვა</span><span lang="en">Safely unmount and power off USB drives</span></td></tr><tr><td><b>wifi-hotspot</b></td><td><span lang="ka">WPA2 Wi-Fi hotspot ნაბიჯ-ნაბიჯ, QR კოდი, მოწყობილობები</span><span lang="en">WPA2 Wi-Fi hotspot step by step, QR code, connected devices</span></td></tr><tr><td><b>printer-setup</b></td><td><span lang="ka">პრინტერის შეერთებიდან სატესტო გვერდამდე</span><span lang="en">From “plugged in a printer” to “test page printed”</span></td></tr><tr><td><b>printhub</b></td><td><span lang="ka">ბეჭდვის ფანჯარა: PDF, სურათები, Office; ფოტო რეჟიმი</span><span lang="en">A print window: PDF, images, Office files; photo mode</span></td></tr><tr><td><b>qgis-installer</b></td><td><span lang="ka">QGIS-ის დაყენება შენი არჩევანით</span><span lang="en">Install QGIS the way you choose</span></td></tr><tr><td><b>installer</b></td><td><span lang="ka">ერთი ფანჯარა მრავალი პროგრამის დასაყენებლად და კრებულის განახლებისთვის</span><span lang="en">One window to install many programs and update the toolkit</span></td></tr><tr><td><b>shortcuts</b></td><td><span lang="ka">ხელსაწყოების იარლიყები სამუშაო მაგიდაზე</span><span lang="en">Launchers on the Desktop</span></td></tr><tr><td><b>devops-toolbox</b></td><td><span lang="ka">DevOps ოპერაციები დაწკაპუნებით, ბრძანების აკრეფის გარეშე</span><span lang="en">DevOps operations by click, without typing commands</span></td></tr></table>
+  <div class="note"><span lang="ka">წყარო: README, ხელსაწყოების ცხრილი. bluetooth-setup ცალკე რეპოზიტორიაში გადავიდა (2026-11-15).</span><span lang="en">Source: README, tools table. bluetooth-setup moved to its own repository (2026-11-15).</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">გეოგრაფებისთვის</span><span lang="en">For geographers</span></p>
+  <h2><span lang="ka">QGIS-ის დაყენება ისე, როგორც შენ აირჩევ</span><span lang="en">Installing QGIS the way you choose</span></h2>
+  <div class="story"><figure><img src="../assets/projects/ls_qgis.png" alt=""></figure><div><ul class="pts tight" lang="ka"><li>ოფიციალური რეპოზიტორია (უახლესი / LTR / nightly), Flatpak, დისტრიბუციის პაკეტი, AUR</li><li>კომპონენტები: GDAL, PROJ, GRASS, SAGA, Python ბიბლიოთეკები, ბაზის კლიენტები</li><li>წინასწარი სიმულაცია, უფრო ძველ ვერსიაზე დაბრუნება, დიაგნოსტიკა (doctor), ოფლაინ ასლი</li></ul><ul class="pts tight" lang="en"><li>Official repository (latest / LTR / nightly), Flatpak, distribution package, AUR</li><li>Components: GDAL, PROJ, GRASS, SAGA, Python libraries, database clients</li><li>A simulation first, going back to an older version, a doctor, an offline copy</li></ul></div></div>
+  <div class="note"><span lang="ka">სურათი — qgis-installer-ის ფანჯარა (ნამდვილი ეკრანის სურათი, ამ კომპიუტერზე). წყარო: README და commit-ები 2026-10-15/16 („components“, „look before you install“, „the doctor“, „offline copy“).</span><span lang="en">The image is the qgis-installer window (a real screenshot, on this computer). Source: README and commits of 2026-10-15/16 (“components”, “look before you install”, “the doctor”, “offline copy”).</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">GIS კატალოგი</span><span lang="en">GIS catalogue</span></p>
+  <h2><span lang="ka">GIS პროგრამები ერთ ფანჯარაში</span><span lang="en">GIS programs in one window</span></h2>
+  <img class="banner" src="../assets/gisday/circles.png" alt="">
+  <ul class="pts" lang="ka"><li>„GIS toolbox“ ჩანართი: QGIS დისტრიბუციიდან ან Flathub-იდან (stable და LTR), SAGA, SpatiaLite</li><li>GIS კატალოგი (OSGeo და საზოგადოების პროექტები) და OpenGeos ბარათები</li><li>ფანჯარა ამბობს, რას ვერ დააყენებ შენს სისტემაზე და რატომ</li></ul>
+  <ul class="pts" lang="en"><li>A “GIS toolbox” tab: QGIS from the distribution or Flathub (stable and LTR), SAGA, SpatiaLite</li><li>A GIS catalogue (OSGeo and community projects) and OpenGeos cards</li><li>The window says what your system cannot get and why</li></ul>
+  <div class="note"><span lang="ka">წყარო: CHANGELOG (2026-10-26 … 11-08 და 2026-11-09 … 15): „GIS catalogue“, „OpenGeos card browser“, „GIS toolbox tab“, „the installer says what a system can get and why“.</span><span lang="en">Source: CHANGELOG (2026-10-26 … 11-08 and 2026-11-09 … 15): “GIS catalogue”, “OpenGeos card browser”, “GIS toolbox tab”, “the installer says what a system can get and why”.</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">უსაფრთხოება</span><span lang="en">Safety</span></p>
+  <h2><span lang="ka">ფრთხილი დაყენება და განახლება</span><span lang="en">Careful install and update</span></h2>
+  <img class="banner" src="../assets/gisday/circles.png" alt="">
+  <ul class="pts" lang="ka"><li>install.sh არასოდეს გადაწერს ან წაშლის ფაილს, რომელიც მას არ ჩაუწერია</li><li>ჩაწერილი ფაილები (გზა და SHA-256) ინახება manifest-ში; არის --dry-run</li><li>get.sh უარს ამბობს არქივზე, რომელშიც ბმულებია ან საქაღალდიდან გამოსული გზები</li><li>განახლება: git-ით, git-ის გარეშე (ატომური ჩანაცვლება, ძველი ვერსიის ასლი) ან USB ასლიდან</li></ul>
+  <ul class="pts" lang="en"><li>install.sh never overwrites or removes a file it did not write</li><li>Installed files (path and SHA-256) go into a manifest; there is a --dry-run</li><li>get.sh refuses archives with links or paths that leave the folder</li><li>Update: with git, without git (atomic replace, backup of old files) or from a USB copy</li></ul>
+  <div class="note"><span lang="ka">წყარო: README („Install“, „Update“) და CHANGELOG 2026-11-16 („safer updates, installs and CI“).</span><span lang="en">Source: README (“Install”, “Update”) and CHANGELOG 2026-11-16 (“safer updates, installs and CI”).</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">DevOps</span><span lang="en">DevOps</span></p>
+  <h2><span lang="ka">DevOps Toolbox: ოპერაციები დაწკაპუნებით</span><span lang="en">DevOps Toolbox: operations by click</span></h2>
+  <div class="story"><figure><img src="../assets/projects/ls_devops.png" alt=""></figure><div><ul class="pts tight" lang="ka"><li>არ არის ტერმინალი: ყოველი ოპერაცია კოდშია, თავად ამოწმებს შეყვანას; გაშვებამდე ჩანს ზუსტი ბრძანება (Preview)</li><li>146 ოპერაცია 14 თემაში: ქსელი, firewall (UFW), SSH, სერვისები, nginx, Docker, Git…</li><li>ფანჯარა და ლოკალური ვებ-გვერდი ერთ ბირთვზე; SSH-ით სხვა კომპიუტერზეც (მხოლოდ გასაღებებით)</li></ul><ul class="pts tight" lang="en"><li>Not a terminal: every operation is in code and validates its input; the exact command is shown first (Preview)</li><li>146 operations in 14 themes: network, firewall (UFW), SSH, services, nginx, Docker, Git…</li><li>A window and a local web page on one backend; also another computer over SSH (keys only)</li></ul></div></div>
+  <div class="note"><span lang="ka">სურათი — DevOps Toolbox-ის ფანჯარა (ნამდვილი ეკრანის სურათი). წყარო: devops-toolbox README და CHANGELOG („Unreleased“: 146 ოპერაცია, SSH).</span><span lang="en">The image is the DevOps Toolbox window (a real screenshot). Source: devops-toolbox README and CHANGELOG (“Unreleased”: 146 operations, SSH).</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">ბეჭდვა</span><span lang="en">Printing</span></p>
+  <h2><span lang="ka">PrintHub: ბეჭდვა Linux-ზე</span><span lang="en">PrintHub: printing on Linux</span></h2>
+  <div class="story"><div><ul class="pts" lang="ka"><li>PDF, სურათები და Office ფაილები; წინასწარი ხედი და ბეჭდვის სრული პარამეტრები</li><li>ფოტო რეჟიმი: მთელი ფურცელი / მთელი ფოტო / ზუსტი ზომა / ნამდვილი ზომა, არეები, გამეორება ფურცელზე</li><li>Qt-ის გამო `all`-ში არ შედის (≈200 MB საკუთარი venv)</li></ul>
+  <ul class="pts" lang="en"><li>PDF, images and Office files; a preview and full print settings</li><li>Photo mode: fill / whole / exact sizes / actual size, margins, repeat on a sheet</li><li>Not part of `all` because of Qt (≈200 MB private venv)</li></ul></div><figure><img class="sideimg" src="../assets/gisday/earth.png" alt=""></figure></div>
+  <div class="note"><span lang="ka">წყარო: printhub README და CHANGELOG („PrintHub photo mode“). PrintHub-ის ეკრანის სურათები რეპოში ამ კომპიუტერზე ქართულ ტექსტს ვერ ხატავს, ამიტომ აქ არ ჩავსვი.</span><span lang="en">Source: printhub README and CHANGELOG (“PrintHub photo mode”). The PrintHub screenshots in the repo do not render text correctly on this computer, so they are not shown here.</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">რა დავადასტურეთ</span><span lang="en">What is verified</span></p>
+  <h2><span lang="ka">რა არის შემოწმებული და რა — არა</span><span lang="en">What is checked and what is not</span></h2>
+  <img class="banner" src="../assets/gisday/circles.png" alt="">
+  <ul class="pts" lang="ka"><li>CI ამოწმებს Debian 12, Ubuntu 22.04 და 24.04, Fedora, Arch, openSUSE Tumbleweed და Alpine-ზე; Python 3.8–3.13</li><li>ruff, shellcheck, compileall; ტესტები იყენებს ყალბ აპარატურას და რეალურ მოწყობილობას არ ეხება</li><li>hotspot გამოცდილია ერთ მანქანაზე: Linux Mint XFCE + Dell Precision M4700; სხვა აპარატურაზე — დაუდასტურებელია</li></ul>
+  <ul class="pts" lang="en"><li>CI checks Debian 12, Ubuntu 22.04 and 24.04, Fedora, Arch, openSUSE Tumbleweed and Alpine; Python 3.8–3.13</li><li>ruff, shellcheck, compileall; tests use fakes and never touch real hardware</li><li>The hotspot was tried on one machine: Linux Mint XFCE + Dell Precision M4700; other hardware is unverified</li></ul>
+  <div class="note"><span lang="ka">წყარო: README, „Supported systems“ და wifi-hotspot README. პატიოსანი სტატუსი: აპარატურაზე დამოკიდებული ხელსაწყოები იმდენადაა დადასტურებული, რამდენადაც მათ README-ში წერია.</span><span lang="en">Source: README, “Supported systems” and the wifi-hotspot README. Honest status: hardware-specific tools are only as verified as their README says.</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">ქრონოლოგია</span><span lang="en">Timeline</span></p>
+  <h2><span lang="ka">5 კვირა: ძირითადი ეტაპები</span><span lang="en">5 weeks: key milestones</span></h2>
+  <table class="small"><tr><th><span lang="ka">თარიღი</span><span lang="en">Date</span></th><th><span lang="ka">ეტაპი</span><span lang="en">Milestone</span></th></tr><tr><td><b>2026-10-14</b></td><td><span lang="ka">usb-eject, wifi-hotspot, printer-setup და qgis-installer</span><span lang="en">usb-eject, wifi-hotspot, printer-setup and qgis-installer</span></td></tr><tr><td><b>2026-10-16</b></td><td><span lang="ka">PrintHub, იარლიყები და „installer“ ფანჯარა</span><span lang="en">PrintHub, shortcuts and the installer window</span></td></tr><tr><td><b>2026-10-17</b></td><td><span lang="ka">განახლება git-ის გარეშე და get.sh</span><span lang="en">Updating without git and get.sh</span></td></tr><tr><td><b>2026-10-18</b></td><td><span lang="ka">OpenGeos ბარათები</span><span lang="en">OpenGeos cards</span></td></tr><tr><td><b>2026-11-01</b></td><td><span lang="ka">Flutter-ის ხელსაწყოები და CI-ის გამართვა</span><span lang="en">Flutter tools and CI tuning</span></td></tr><tr><td><b>2026-11-14</b></td><td><span lang="ka">„GIS toolbox“ ჩანართი</span><span lang="en">The “GIS toolbox” tab</span></td></tr><tr><td><b>2026-11-15</b></td><td><span lang="ka">CI მატრიცა (ruff, shellcheck, Python 3.8–3.13)</span><span lang="en">CI matrix (ruff, shellcheck, Python 3.8–3.13)</span></td></tr><tr><td><b>2026-11-16</b></td><td><span lang="ka">DevOps Toolbox და უსაფრთხო განახლებები</span><span lang="en">DevOps Toolbox and safer updates</span></td></tr></table>
+  <div class="note"><span lang="ka">თარიღები CHANGELOG-იდან და commit-ებიდანაა.</span><span lang="en">Dates come from the CHANGELOG and commits.</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">AI</span><span lang="en">AI</span></p>
+  <h2><span lang="ka">როგორ დამეხმარა AI linux-scripts-ში</span><span lang="en">How AI helped with linux-scripts</span></h2>
+  <div class="grid"><div class="card"><h3 style="font-size:clamp(28px,4vw,48px);color:var(--accent2)">128 / 194</h3><p><span lang="ka">commit-ი Claude-ის co-author ჩანაწერით</span><span lang="en">commits with a Claude co-author trailer</span></p></div><div class="card"><h3 style="font-size:clamp(28px,4vw,48px);color:var(--accent2)">5</h3><p><span lang="ka">კვირა: 2026-10-14 → 11-16</span><span lang="en">weeks: 2026-10-14 → 11-16</span></p></div><div class="card"><h3 style="font-size:clamp(28px,4vw,48px);color:var(--accent2)">#56</h3><p><span lang="ka">ბოლო ნახული pull request; ყოველი ცვლილება CI-ს გადის</span><span lang="en">latest pull request seen; every change passes CI</span></p></div><div class="card"><h3 style="font-size:clamp(28px,4vw,48px);color:var(--accent2)">8</h3><p><span lang="ka">ხელსაწყო კრებულში</span><span lang="en">tools in the toolkit</span></p></div></div>
+  <p class="small muted"><span lang="ka">ციფრები git ისტორიიდანაა: „Co-Authored-By: Claude“ ხაზები</span><span lang="en">Numbers come from git history: “Co-Authored-By: Claude” lines</span></p>
+  <div class="note"><span lang="ka">194 commit-იდან 128 შეიცავს „Co-Authored-By: Claude“ ხაზს; დანარჩენები, მათ შორის merge commit-ები, არა. [აქ დაამატე შენი სიტყვები]</span><span lang="en">128 of 194 commits contain a “Co-Authored-By: Claude” line; the rest, including merge commits, do not. [Add your own words here]</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">ამბავი 1</span><span lang="en">Story 1</span></p>
+  <h2><span lang="ka">CI, რომელმაც qgis.org დატვირთა</span><span lang="en">CI that hammered qgis.org</span></h2>
+  <div class="story"><figure><img src="../assets/projects/ls_qgis.png" alt=""><figcaption class="small muted"><span lang="ka">qgis-installer</span><span lang="en">qgis-installer</span></figcaption></figure><div class="sblocks"><div class="card"><h3><span lang="ka">პრობლემა</span><span lang="en">Problem</span></h3><p><span lang="ka">ავტომატური შემოწმებები qgis.org-იდან ჩამოტვირთვებს ცდილობდა — ერთდროულად ბევრი გაშვება</span><span lang="en">Automated checks downloaded from qgis.org — many runs at once</span></p></div><div class="card"><h3><span lang="ka">როგორ დამეხმარა AI</span><span lang="en">How AI helped</span></h3><p><span lang="ka">დავინახეთ, რომ ერთსა და იმავე ცვლილებაზე ორი გაშვება იყო; ახლა ტესტი ერთხელ ეშვება</span><span lang="en">We saw that one change ran twice; now the tests run once</span></p></div><div class="card"><h3><span lang="ka">შედეგი</span><span lang="en">Result</span></h3><p><span lang="ka">მხოლოდ pull request-ზე ეშვება; push — მხოლოდ main-ზე</span><span lang="en">Tests run on the pull request; pushes only on main</span></p></div></div></div>
+  <div class="callout tip"><span lang="ka">გაკვეთილი: ავტომატური შემოწმებაც უნდა იყოს კეთილგანწყობილი სხვისი სერვერებისადმი</span><span lang="en">Lesson: Automated checks should be polite to other people’s servers</span></div>
+  <p class="small muted">git: 2026-11-01</p>
+  <div class="note"><span lang="ka">commit-ის ტექსტი პირდაპირ ამბობს, რომ დუბლირებული გაშვებები qgis.org-ს „ამძიმებდა“.
+commits: 2026-11-01: CI: test branches once (pull_request), push only on main - duplicate concurrent runs hammered qgis.org
+[აქ დაამატე შენი სიტყვები]</span><span lang="en">The commit text says directly that duplicate runs “hammered” qgis.org.
+commits: 2026-11-01: CI: test branches once (pull_request), push only on main - duplicate concurrent runs hammered qgis.org
+[Add your own words here]</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">ამბავი 2</span><span lang="en">Story 2</span></p>
+  <h2><span lang="ka">განახლება არ უნდა გატეხავდეს</span><span lang="en">An update must not break things</span></h2>
+  <div class="story"><figure><img src="../assets/projects/ls_installer.png" alt=""><figcaption class="small muted"><span lang="ka">Toolkit Installer</span><span lang="en">Toolkit Installer</span></figcaption></figure><div class="sblocks"><div class="card"><h3><span lang="ka">პრობლემა</span><span lang="en">Problem</span></h3><p><span lang="ka">git-ის გარეშე განახლებამ შეიძლებოდა ფაილები არასწორ ადგილას ჩაეწერა ან ბმული გადაეწერა</span><span lang="en">An update without git could write files in the wrong place or write through a symbolic link</span></p></div><div class="card"><h3><span lang="ka">როგორ დამეხმარა AI</span><span lang="en">How AI helped</span></h3><p><span lang="ka">განახლება ახლა ჯერ გადაამოწმებს არქივს, ფაილებს ცვლის ატომურად და ჩავარდნისას უკან აბრუნებს</span><span lang="en">An update now checks the archive first, replaces files atomically and rolls back on failure</span></p></div><div class="card"><h3><span lang="ka">შედეგი</span><span lang="en">Result</span></h3><p><span lang="ka">არქივები ბმულებითა და გზებით საქაღალდის გარეთ უარყოფილია; ძველი ფაილების ასლი ინახება</span><span lang="en">Archives with links or escaping paths are refused; old files are backed up</span></p></div></div></div>
+  <div class="callout tip"><span lang="ka">გაკვეთილი: უსაფრთხოება ნიშნავს ცუდ სცენარებზე ფიქრს ჯერ კიდევ კოდის დაწერამდე</span><span lang="en">Lesson: Security means thinking about the bad cases before writing the code</span></div>
+  <p class="small muted">git: 2026-11-15 → 16</p>
+  <div class="note"><span lang="ka">წყარო: CHANGELOG 2026-11-16 („Security“ ჩანაწერები).
+commits: 2026-11-15: Merge pull request #51 from kapo-Toolkits/fix/safe-update · CHANGELOG 2026-11-16: Security — install.sh no longer overwrites or removes files that are not its own; the no-git updater and get.sh no longer write through symbolic links
+[აქ დაამატე შენი სიტყვები]</span><span lang="en">Source: CHANGELOG 2026-11-16 (“Security” entries).
+commits: 2026-11-15: Merge pull request #51 from kapo-Toolkits/fix/safe-update · CHANGELOG 2026-11-16: Security — install.sh no longer overwrites or removes files that are not its own; the no-git updater and get.sh no longer write through symbolic links
+[Add your own words here]</span></div>
+</section>
+
+<section class="slide">
+  <p class="kicker"><span lang="ka">ამბავი 3</span><span lang="en">Story 3</span></p>
+  <h2><span lang="ka">ავტომატური შემოწმება და გასწორება</span><span lang="en">Automatic checks and fixes</span></h2>
+  <div class="story"><figure><img src="../assets/projects/ls_devops.png" alt=""><figcaption class="small muted"><span lang="ka">DevOps Toolbox</span><span lang="en">DevOps Toolbox</span></figcaption></figure><div class="sblocks"><div class="card"><h3><span lang="ka">პრობლემა</span><span lang="en">Problem</span></h3><p><span lang="ka">სკრიპტების კრებული დიდდებოდა და უნდა გვენახა, რა ირღვეოდა სხვადასხვა Python ვერსიაზე</span><span lang="en">The collection of scripts grew and we needed to see what broke on different Python versions</span></p></div><div class="card"><h3><span lang="ka">როგორ დამეხმარა AI</span><span lang="en">How AI helped</span></h3><p><span lang="ka">დავამატეთ ruff, shellcheck, compileall და Python 3.8–3.13 მატრიცა; ის, რაც ნაპოვნი იყო, იმავე დღეს გავასწორეთ</span><span lang="en">We added ruff, shellcheck, compileall and a Python 3.8–3.13 matrix; what they found was fixed the same day</span></p></div><div class="card"><h3><span lang="ka">შედეგი</span><span lang="en">Result</span></h3><p><span lang="ka">მაგ.: plugin-ების სკანირება Python 3.8/3.9-ზე სტანდარტულ ბიბლიოთეკას პაკეტად ასახელებდა</span><span lang="en">E.g. plugin scanning on Python 3.8/3.9 reported the standard library as packages</span></p></div></div></div>
+  <div class="callout tip"><span lang="ka">გაკვეთილი: ავტომატურმა შემოწმებამ ისეთი ხარვეზი აჩვენა, რომელიც ხელით ვერ შევამჩნიეთ</span><span lang="en">Lesson: The automated check showed a defect we could not see by hand</span></div>
+  <p class="small muted">git: 2026-11-15</p>
+  <div class="note"><span lang="ka">წყარო: commit და CHANGELOG 2026-11-16 („Fixed plugin scanning on Python 3.8/3.9“).
+commits: 2026-11-15: CI: ruff, shellcheck on every .sh, compileall on every tool, Python 3.8-3.13 matrix; fix what they found
+[აქ დაამატე შენი სიტყვები]</span><span lang="en">Source: the commit and CHANGELOG 2026-11-16 (“Fixed plugin scanning on Python 3.8/3.9”).
+commits: 2026-11-15: CI: ruff, shellcheck on every .sh, compileall on every tool, Python 3.8-3.13 matrix; fix what they found
+[Add your own words here]</span></div>
+</section>
+
+<section class="slide closing">
+  <p class="kicker">GIS DAY 2026</p>
+  <h2><span lang="ka">სცადე და შემოგვიერთდი</span><span lang="en">Try it and join us</span></h2>
+  <div class="qr3"><a class="qr" style="position:static" href="https://github.com/kapo-Toolkits/linux-scripts" target="_blank" rel="noopener"><img src="../assets/qr-linux.svg" alt="QR linux-scripts"><span><b>linux-scripts</b><br>kapo-Toolkits/linux-scripts</span></a></div>
+  <div class="note"><span lang="ka">QR კოდი გადაგიყვანთ GitHub რეპოზიტორიაში. დაყენება: get.sh ან ./install.sh.</span><span lang="en">The QR code leads to the GitHub repository. Install with get.sh or ./install.sh.</span></div>
+</section>
+</main>
+<script src="../assets/deck.js"></script>
+</body>
+</html>
