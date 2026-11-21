@@ -6,7 +6,12 @@ const QR = require('qrcode');
 const ROOT = __dirname + '/../';
 const REPO = 'https://github.com/GIS-GEORGIA/gis-toolkit';
 
-const SLIDES = require('./gisbox_slides');
+const DECK = process.env.DECK === 'projects' ? 'projects' : 'gisbox';
+const CFG = DECK === 'projects' ? { slides: './projects_slides', html: 'our-projects.html', pptx: 'GIS_DAY_OUR_PROJECTS.pptx', title: 'GIS DAY: Our open projects', foot: 'GIS DAY 2026 · GIS_BOX · GeoClass · linux-scripts · gisday.qgis.ge' } : { slides: './gisbox_slides', html: 'gis-box.html', pptx: 'GIS_BOX_AI_PRESENTATION.pptx', title: 'GIS_BOX: how I built a GIS toolkit with AI', foot: 'GIS DAY 2026 · GIS_BOX · github.com/GIS-GEORGIA/gis-toolkit' };
+const SLIDES = require(CFG.slides);
+const DEFAULT_QR = { name: 'gisbox', url: REPO, label: 'github.com/GIS-GEORGIA/gis-toolkit', ka: 'დაასკანერე და გახსენი რეპოზიტორია', en: 'Scan to open the repository' };
+const qrFile = n => (n === 'gisbox' ? 'gisbox-qr' : 'qr-' + n);
+const allQrs = () => { const m = new Map([['gisbox', DEFAULT_QR]]); SLIDES.forEach(x => { if (x.qr) m.set(x.qr.name, x.qr); (x.qrs || []).forEach(q => m.set(q.name, q)); }); return [...m.values()]; };
 
 // ---------------- HTML ----------------
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -20,7 +25,14 @@ function htmlSlide(s) {
   <p class="kicker">${LL(s.kicker)}</p>
   <h1>${LL(s.title)}</h1>
   <p class="lead" style="margin-top:16px">${LL(s.sub)}</p>
-  <a class="qr" href="${REPO}" target="_blank" rel="noopener"><img src="../assets/gisbox-qr.svg" alt="QR: gis-toolkit"><span>${L('დაასკანერე და გახსენი რეპოზიტორია', 'Scan to open the repository')}<br><b>github.com/GIS-GEORGIA/gis-toolkit</b></span></a>
+  <a class="qr" href="${(s.qr || DEFAULT_QR).url}" target="_blank" rel="noopener"><img src="../assets/${qrFile((s.qr || DEFAULT_QR).name)}.svg" alt="QR"><span>${L((s.qr || DEFAULT_QR).ka, (s.qr || DEFAULT_QR).en)}<br><b>${esc((s.qr || DEFAULT_QR).label)}</b></span></a>
+${noteH(s.note)}
+</section>`;
+  if (s.t === 'close3') return `
+<section class="slide closing">
+  <p class="kicker">GIS DAY 2026</p>
+  <h2>${LL(s.title)}</h2>
+  <div class="qr3">${s.qrs.map(q => `<a class="qr" style="position:static" href="${q.url}" target="_blank" rel="noopener"><img src="../assets/${qrFile(q.name)}.svg" alt="QR ${esc(q.label)}"><span><b>${esc(q.label)}</b><br>${esc(q.sub)}</span></a>`).join('')}</div>
 ${noteH(s.note)}
 </section>`;
   if (s.t === 'close') return `
@@ -38,7 +50,7 @@ ${noteH(s.note)}
   } else if (s.t === 'hero') {
     body = `  <div class="story"><figure><img src="../assets/${s.img}" alt=""></figure><div><ul class="pts tight" lang="ka">${s.items.map(i => `<li>${esc(i[0])}</li>`).join('')}</ul><ul class="pts tight" lang="en">${s.items.map(i => `<li>${esc(i[1])}</li>`).join('')}</ul></div></div>`;
   } else if (s.t === 'collage') {
-    body = `  <div class="collage">${s.tiles.map(t => `<figure><img src="../assets/${t[0]}" alt=""><figcaption class="small">${L(t[1], t[2])}</figcaption></figure>`).join('')}</div>`;
+    body = `  <div class="collage" style="grid-template-columns:repeat(${s.cols || 3},1fr)">${s.tiles.map(t => `<figure><img src="../assets/${t[0]}" alt=""><figcaption class="small">${L(t[1], t[2])}</figcaption></figure>`).join('')}</div>` + (s.credit ? `\n  <p class="small muted">${L(s.credit[0], s.credit[1])}</p>` : '');
   } else if (s.t === 'stats') {
     body = `  <div class="grid">${s.items.map(i => `<div class="card"><h3 style="font-size:clamp(28px,4vw,48px);color:var(--accent2)">${esc(i[0])}</h3><p>${L(i[1], i[2])}</p></div>`).join('')}</div>\n  <p class="small muted">${L(s.foot[0], s.foot[1])}</p>`;
   } else if (s.t === 'table') {
@@ -68,7 +80,7 @@ const NAVY = '0A1F6B', TEAL = '1DBFA6', INK = '13213F', MUTE = '5B6785', PALE = 
 const HF = 'Cambria', BF = 'Calibri', KF = 'Sylfaen';
 const run = (t, o) => ({ text: t, options: o });
 function pptx() {
-  const p = new pptxgen(); p.layout = 'LAYOUT_WIDE'; p.title = 'GIS_BOX: an AI-assisted GIS toolkit'; p.author = 'GIS Day'; p.subject = 'Bilingual (Georgian/English)';
+  const p = new pptxgen(); p.layout = 'LAYOUT_WIDE'; p.title = CFG.title; p.author = 'GIS Day'; p.subject = 'Bilingual (Georgian/English)';
   const base = (s0, dark) => {
     const s = p.addSlide(); s.background = { color: dark ? NAVY : WHITE };
     s.addNotes('ქართული / Georgian\n' + s0.note[0] + '\n\nEnglish\n' + s0.note[1]); return s;
@@ -77,7 +89,7 @@ function pptx() {
     s.addText(t[0], { x: 0.6, y: 0.3, w: dark ? 12.1 : 10.5, h: 0.55, fontFace: KF, fontSize: 28, bold: true, color: dark ? WHITE : NAVY, margin: 0, valign: 'middle', isTextBox: true, fit: 'shrink' });
     s.addText(t[1], { x: 0.6, y: 0.88, w: 12.1, h: 0.45, fontFace: HF, fontSize: 20, bold: true, color: dark ? TEAL : OK, margin: 0, valign: 'middle', isTextBox: true, fit: 'shrink' });
   };
-  const foot = s => s.addText('GIS DAY 2026 · GIS_BOX · github.com/GIS-GEORGIA/gis-toolkit', { x: 0.6, y: 7.05, w: 10.5, h: 0.3, fontFace: BF, fontSize: 10, color: MUTE, margin: 0, isTextBox: true });
+  const foot = s => s.addText(CFG.foot, { x: 0.6, y: 7.05, w: 10.5, h: 0.3, fontFace: BF, fontSize: 10, color: MUTE, margin: 0, isTextBox: true });
   const logo = s => s.addImage({ path: ROOT + 'assets/gisday/logo.png', x: 11.3, y: 0.3, w: 1.5, h: 0.47 });
   const box = (s, x, y, w, h, kaT, enT, kaD, enD, fill = PALE, ks = 15) => {
     s.addShape('roundRect', { x, y, w, h, fill: { color: fill }, line: { color: fill }, rectRadius: 0.08 });
@@ -94,8 +106,17 @@ function pptx() {
       s.addText(sd.title[1], { x: 0.7, y: 3.2, w: 7.4, h: 0.9, fontFace: HF, fontSize: 24, bold: true, color: TEAL, margin: 0, valign: 'top', isTextBox: true });
       s.addText([run(sd.sub[0], { fontFace: KF, fontSize: 15, color: WHITE, breakLine: true, paraSpaceAfter: 4 }), run(sd.sub[1], { fontFace: BF, fontSize: 15, color: 'CADCFC' })], { x: 0.7, y: 4.4, w: 7.4, h: 1.2, margin: 0, valign: 'top', isTextBox: true });
       s.addShape('roundRect', { x: 11.35, y: 5.75, w: 1.5, h: 1.5, fill: { color: WHITE }, line: { color: WHITE }, rectRadius: 0.1 });
-      s.addImage({ path: ROOT + 'assets/gisbox-qr.png', x: 11.45, y: 5.85, w: 1.3, h: 1.3, hyperlink: { url: REPO } });
-      s.addText([run('დაასკანერე და გახსენი რეპოზიტორია', { fontFace: KF, fontSize: 12, color: WHITE, breakLine: true }), run('Scan to open the repository', { fontFace: BF, fontSize: 12, color: 'CADCFC', breakLine: true }), run('github.com/GIS-GEORGIA/gis-toolkit', { fontFace: BF, fontSize: 12, bold: true, color: TEAL })], { x: 7.2, y: 5.85, w: 4.0, h: 1.3, align: 'right', valign: 'middle', margin: 0, isTextBox: true });
+      const cq = sd.qr || DEFAULT_QR;
+      s.addImage({ path: ROOT + 'assets/' + qrFile(cq.name) + '.png', x: 11.45, y: 5.85, w: 1.3, h: 1.3, hyperlink: { url: cq.url } });
+      s.addText([run(cq.ka, { fontFace: KF, fontSize: 12, color: WHITE, breakLine: true }), run(cq.en, { fontFace: BF, fontSize: 12, color: 'CADCFC', breakLine: true }), run(cq.label, { fontFace: BF, fontSize: 12, bold: true, color: TEAL })], { x: 7.2, y: 5.85, w: 4.0, h: 1.3, align: 'right', valign: 'middle', margin: 0, isTextBox: true });
+    } else if (sd.t === 'close3') {
+      const s = base(sd, true);
+      s.addText(sd.title[0], { x: 0.7, y: 0.5, w: 12, h: 0.8, fontFace: KF, fontSize: 32, bold: true, color: WHITE, margin: 0, isTextBox: true });
+      s.addText(sd.title[1], { x: 0.7, y: 1.3, w: 12, h: 0.6, fontFace: HF, fontSize: 24, bold: true, color: TEAL, margin: 0, isTextBox: true });
+      sd.qrs.forEach((q, i) => { const x = 0.7 + i * 4.1;
+        s.addShape('roundRect', { x, y: 2.4, w: 3.8, h: 4.2, fill: { color: WHITE }, line: { color: WHITE }, rectRadius: 0.1 });
+        s.addImage({ path: ROOT + 'assets/' + qrFile(q.name) + '.png', x: x + 0.5, y: 2.6, w: 2.8, h: 2.8, hyperlink: { url: q.url } });
+        s.addText([run(q.label, { fontFace: HF, fontSize: 22, bold: true, color: NAVY, breakLine: true }), run(q.sub, { fontFace: BF, fontSize: 13, color: MUTE })], { x, y: 5.5, w: 3.8, h: 1.0, align: 'center', margin: 0, valign: 'top', isTextBox: true }); });
     } else if (sd.t === 'close') {
       const s = base(sd, true);
       s.addImage({ path: ROOT + 'resources/item-resources/_7vffgvGntbyqhMq6MEmu.png', x: 8.6, y: 1.2, w: 4.2, h: 4.2, sizing: { type: 'contain', w: 4.2, h: 4.2 } });
@@ -125,10 +146,12 @@ function pptx() {
         const its = sd.items.flatMap((it, i) => [run(it[0], { fontFace: KF, fontSize: 16, color: INK, breakLine: true }), run(it[1], { fontFace: BF, fontSize: 14, color: MUTE, breakLine: i < sd.items.length - 1, paraSpaceAfter: 14 })]);
         s.addText(its, { x: 8.6, y: 1.6, w: 4.2, h: 4.8, margin: 0, valign: 'top', isTextBox: true });
       } else if (sd.t === 'collage') {
-        sd.tiles.forEach((t, i) => { const x = 0.6 + (i % 3) * 4.1, y = 1.5 + Math.floor(i / 3) * 2.8;
-          s.addShape('roundRect', { x, y, w: 3.9, h: 2.4, fill: { color: 'F3F6FB' }, line: { color: 'C9D3E6', width: 1 }, rectRadius: 0.05 });
-          img(t[0], x + 0.08, y + 0.08, 3.74, 2.24);
-          s.addText([run(t[1], { fontFace: KF, fontSize: 12, bold: true, color: NAVY, breakLine: true }), run(t[2], { fontFace: BF, fontSize: 11, color: MUTE })], { x, y: y + 2.42, w: 3.9, h: 0.4, margin: 0, isTextBox: true }); });
+        const cols = sd.cols || 3, gap = 0.2, tw = (12.1 - gap * (cols - 1)) / cols, th = cols === 3 ? 2.4 : Math.min(tw, 3.9);
+        sd.tiles.forEach((t, i) => { const x = 0.6 + (i % cols) * (tw + gap), y = 1.5 + Math.floor(i / cols) * (th + 0.4);
+          s.addShape('roundRect', { x, y, w: tw, h: th, fill: { color: 'F3F6FB' }, line: { color: 'C9D3E6', width: 1 }, rectRadius: 0.05 });
+          img(t[0], x + 0.08, y + 0.08, tw - 0.16, th - 0.16);
+          s.addText([run(t[1], { fontFace: KF, fontSize: 12, bold: true, color: NAVY, breakLine: true }), run(t[2], { fontFace: BF, fontSize: 11, color: MUTE })], { x, y: y + th + 0.02, w: tw, h: 0.4, margin: 0, isTextBox: true }); });
+        if (sd.credit) s.addText([run(sd.credit[0] + ' / ', { fontFace: KF, fontSize: 10.5, color: MUTE }), run(sd.credit[1], { fontFace: BF, fontSize: 10.5, color: MUTE })], { x: 0.6, y: 6.55, w: 12.1, h: 0.35, margin: 0, isTextBox: true });
       } else if (sd.t === 'stats') {
         const two = sd.items.length === 4, cw = two ? 5.95 : 3.9, step = two ? 6.15 : 4.1, per = two ? 2 : 3;
         sd.items.forEach((it, i) => { const x = 0.6 + (i % per) * step, y = 1.6 + Math.floor(i / per) * 2.45;
@@ -160,20 +183,22 @@ function pptx() {
       }
     }
   }
-  return p.writeFile({ fileName: ROOT + 'downloads/GIS_BOX_AI_PRESENTATION.pptx' });
+  return p.writeFile({ fileName: ROOT + 'downloads/' + CFG.pptx });
 }
 
 (async () => {
   fs.mkdirSync(ROOT + 'assets', { recursive: true });
   const opt = { margin: 1, errorCorrectionLevel: 'M', color: { dark: '#0a1f6b', light: '#ffffff' } };
-  fs.writeFileSync(ROOT + 'assets/gisbox-qr.svg', await QR.toString(REPO, Object.assign({ type: 'svg' }, opt)));
-  await QR.toFile(ROOT + 'assets/gisbox-qr.png', REPO, Object.assign({ width: 600 }, opt));
+  for (const q of allQrs()) {
+    fs.writeFileSync(ROOT + 'assets/' + qrFile(q.name) + '.svg', await QR.toString(q.url, Object.assign({ type: 'svg' }, opt)));
+    await QR.toFile(ROOT + 'assets/' + qrFile(q.name) + '.png', q.url, Object.assign({ width: 600 }, opt));
+  }
   const html = `<!doctype html>
 <html lang="ka">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GIS_BOX: AI-assisted GIS toolkit</title>
+<title>${CFG.title}</title>
 <link rel="stylesheet" href="../assets/deck.css">
 <link rel="stylesheet" href="../assets/gisday.css">
 </head>
@@ -185,7 +210,7 @@ ${SLIDES.map(htmlSlide).join('\n')}
 </body>
 </html>
 `;
-  fs.writeFileSync(ROOT + 'presentations/gis-box.html', html);
+  fs.writeFileSync(ROOT + 'presentations/' + CFG.html, html);
   await pptx();
   console.log('ok', SLIDES.length, 'slides');
 })();

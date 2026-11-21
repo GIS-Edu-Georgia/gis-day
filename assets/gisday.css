@@ -67,3 +67,5 @@ table th.rh{background:var(--panel)!important; color:var(--accent)!important}
 .collage figcaption{margin-top:6px; font-weight:600}
 img.sideimg{width:min(100%,380px); margin:auto; display:block; border:0; box-shadow:none; background:transparent}
 @media (max-width:820px){.story,.collage{grid-template-columns:1fr}}
+
+.qr3{display:flex; flex-wrap:wrap; gap:18px; margin-top:20px} .qr3 .qr img{width:clamp(90px,12vw,150px)}

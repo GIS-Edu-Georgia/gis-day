@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GIS_BOX: AI-assisted GIS toolkit</title>
+<title>GIS_BOX: how I built a GIS toolkit with AI</title>
 <link rel="stylesheet" href="../assets/deck.css">
 <link rel="stylesheet" href="../assets/gisday.css">
 </head>
@@ -14,7 +14,7 @@
   <p class="kicker"><span lang="ka">GIS DAY 2026 · 18.11.2026</span><span lang="en">GIS DAY 2026 · 18 Nov 2026</span></p>
   <h1><span lang="ka">GIS_BOX: როგორ ავაგე GIS ხელსაწყო AI-ის დახმარებით</span><span lang="en">GIS_BOX: how I built a GIS toolkit with AI</span></h1>
   <p class="lead" style="margin-top:16px"><span lang="ka">გიორგი კაპანაძე · გეოგრაფის ამბავი 11 კვირაზე</span><span lang="en">Giorgi Kapanadze · a geographer’s 11-week story</span></p>
-  <a class="qr" href="https://github.com/GIS-GEORGIA/gis-toolkit" target="_blank" rel="noopener"><img src="../assets/gisbox-qr.svg" alt="QR: gis-toolkit"><span><span lang="ka">დაასკანერე და გახსენი რეპოზიტორია</span><span lang="en">Scan to open the repository</span><br><b>github.com/GIS-GEORGIA/gis-toolkit</b></span></a>
+  <a class="qr" href="https://github.com/GIS-GEORGIA/gis-toolkit" target="_blank" rel="noopener"><img src="../assets/gisbox-qr.svg" alt="QR"><span><span lang="ka">დაასკანერე და გახსენი რეპოზიტორია</span><span lang="en">Scan to open the repository</span><br><b>github.com/GIS-GEORGIA/gis-toolkit</b></span></a>
   <div class="note"><span lang="ka">ეს არის GIS_BOX-ის შექმნის ამბავი გეოგრაფებისთვის: რა ამოცანები მქონდა, სად დამეხმარა AI (Claude) და სად დამჭირდა რამდენიმე ცდა. ფაქტები git ისტორიიდანაა (github.com/GIS-GEORGIA/gis-toolkit), გადამოწმებულია 2026-11-18-ზე. ეკრანის სურათები GIS_BOX-ის ნამდვილი ფანჯრებია.</span><span lang="en">This is the story of building GIS_BOX for geographers: the tasks I had, where AI (Claude) helped and where it took several attempts. Facts come from the git history (github.com/GIS-GEORGIA/gis-toolkit), checked 2026-11-18. Screenshots are real GIS_BOX windows.</span></div>
 </section>
 
@@ -28,7 +28,7 @@
 <section class="slide">
   <p class="kicker"><span lang="ka">ხელსაწყოები</span><span lang="en">Tools</span></p>
   <h2><span lang="ka">ამოცანები, რომლებიც გეოგრაფს ყოველდღე აქვს</span><span lang="en">Tasks a geographer faces every day</span></h2>
-  <div class="collage"><figure><img src="../assets/gisbox/main.png" alt=""><figcaption class="small"><span lang="ka">ნაკვეთის ძებნა კოდით</span><span lang="en">Parcel search by code</span></figcaption></figure><figure><img src="../assets/gisbox/coord.png" alt=""><figcaption class="small"><span lang="ka">კოორდინატები რუკის სურათიდან</span><span lang="en">Coordinates from a map image</span></figcaption></figure><figure><img src="../assets/gisbox/shpcoords.png" alt=""><figcaption class="small"><span lang="ka">წერტილები → Excel</span><span lang="en">Points → Excel</span></figcaption></figure><figure><img src="../assets/gisbox/dwg.png" alt=""><figcaption class="small"><span lang="ka">DWG → Shapefile</span><span lang="en">DWG → Shapefile</span></figcaption></figure><figure><img src="../assets/gisbox/buffers.png" alt=""><figcaption class="small"><span lang="ka">დაცვის ზონების ბუფერები</span><span lang="en">Protection-zone buffers</span></figcaption></figure><figure><img src="../assets/gisbox/zone.png" alt=""><figcaption class="small"><span lang="ka">ნაკვეთი × დაცვის ზონა</span><span lang="en">Parcel × protection zone</span></figcaption></figure></div>
+  <div class="collage" style="grid-template-columns:repeat(3,1fr)"><figure><img src="../assets/gisbox/main.png" alt=""><figcaption class="small"><span lang="ka">ნაკვეთის ძებნა კოდით</span><span lang="en">Parcel search by code</span></figcaption></figure><figure><img src="../assets/gisbox/coord.png" alt=""><figcaption class="small"><span lang="ka">კოორდინატები რუკის სურათიდან</span><span lang="en">Coordinates from a map image</span></figcaption></figure><figure><img src="../assets/gisbox/shpcoords.png" alt=""><figcaption class="small"><span lang="ka">წერტილები → Excel</span><span lang="en">Points → Excel</span></figcaption></figure><figure><img src="../assets/gisbox/dwg.png" alt=""><figcaption class="small"><span lang="ka">DWG → Shapefile</span><span lang="en">DWG → Shapefile</span></figcaption></figure><figure><img src="../assets/gisbox/buffers.png" alt=""><figcaption class="small"><span lang="ka">დაცვის ზონების ბუფერები</span><span lang="en">Protection-zone buffers</span></figcaption></figure><figure><img src="../assets/gisbox/zone.png" alt=""><figcaption class="small"><span lang="ka">ნაკვეთი × დაცვის ზონა</span><span lang="en">Parcel × protection zone</span></figcaption></figure></div>
   <div class="note"><span lang="ka">თითო სურათი — თითო ხელსაწყოს ნამდვილი ფანჯარა. სულ 11 ხელსაწყოა; აქ 6 გვაჩვენებ.</span><span lang="en">Each image is a real window of one tool. There are 11 tools in total; six are shown here.</span></div>
 </section>
 
